@@ -1,0 +1,22 @@
+groups:
+  - name: hermes_cost
+    rules:
+      - alert: AgentCostSpike
+        expr: |
+          increase(hermes_cost_usd_total[1h]) > (
+            avg_over_time(increase(hermes_cost_usd_total[1h])[7d:1h]) * 1.5
+          )
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Agent {{ $labels.agent_id }} cost spike detected"
+          description: "Cost increased {{ $value | humanize }}% above normal"
+
+      - alert: CostExporterDown
+        expr: up{job="hermes-cost-exporter"} == 0
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Hermes cost exporter is down"

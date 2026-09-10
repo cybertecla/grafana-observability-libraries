@@ -1,0 +1,14 @@
+# Secrets — never commit
+.env
+
+# Runtime / state
+promtail-positions/
+data/
+*.pid
+
+# Local editing droppings
+*.swp
+*~
+
+# OS
+.DS_Store

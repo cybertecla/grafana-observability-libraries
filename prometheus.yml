@@ -1,0 +1,15 @@
+global:
+  scrape_interval: 30s
+  evaluation_interval: 30s
+
+rule_files:
+  - /etc/prometheus/alerts.yml
+
+scrape_configs:
+  - job_name: 'otel-collector'
+    static_configs:
+      - targets: ['otel-collector:8889']
+
+  - job_name: 'hermes-cost-exporter'
+    static_configs:
+      - targets: ['hermes-cost-exporter:9101']

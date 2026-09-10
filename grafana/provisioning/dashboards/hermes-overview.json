@@ -1,0 +1,86 @@
+{
+  "uid": "hermes-overview",
+  "title": "Hermes Multi-Agent Overview",
+  "tags": ["hermes"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "time": { "from": "now-24h", "to": "now" },
+  "panels": [
+    {
+      "id": 1,
+      "type": "stat",
+      "title": "Total Cost (USD) - Today",
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "expr": "sum(increase(hermes_cost_usd_total[24h]))",
+          "legendFormat": "total"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "bargauge",
+      "title": "Cost by Agent",
+      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 0 },
+      "targets": [
+        {
+          "expr": "increase(hermes_cost_usd_total[24h])",
+          "legendFormat": "{{agent_id}}"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "type": "bargauge",
+      "title": "Tokens Used by Agent (24h)",
+      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 0 },
+      "targets": [
+        {
+          "expr": "sum by (agent_id) (increase(hermes_tokens_total[24h]))",
+          "legendFormat": "{{agent_id}}"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "type": "graph",
+      "title": "LLM Calls by Agent",
+      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 0 },
+      "targets": [
+        {
+          "expr": "sum by (agent_id) (increase(hermes_calls_total[1h]))",
+          "legendFormat": "{{agent_id}}"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "type": "graph",
+      "title": "Hermes Log Volume (Loki)",
+      "gridPos": { "h": 6, "w": 24, "x": 0, "y": 4 },
+      "targets": [
+        {
+          "expr": "sum by (level) (rate({filename=~\".*hermes.*\"}[5m]))",
+          "legendFormat": "{{level}}",
+          "datasource": { "type": "loki", "uid": "lokiuid" }
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "type": "graph",
+      "title": "Error Lines by Source (Loki)",
+      "gridPos": { "h": 6, "w": 24, "x": 0, "y": 10 },
+      "targets": [
+        {
+          "expr": "sum by (filename) (rate({filename=~\".*\"} |= \"error\" [5m]))",
+          "legendFormat": "{{filename}}",
+          "datasource": { "type": "loki", "uid": "lokiuid" }
+        }
+      ]
+    }
+  ]
+}
