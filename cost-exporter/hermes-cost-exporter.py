@@ -59,7 +59,7 @@ def render() -> str:
     with _lock:
         lines = []
         for name, value in _metrics.items():
-            lines.append(f"{name} {value:g}")
+            lines.append(f"{name} {value}")
         lines.append(f"hermes_cost_exporter_errors_total {_errors}")
         return "\n".join(lines) + "\n"
 

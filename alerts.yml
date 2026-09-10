@@ -1,17 +1,14 @@
 groups:
   - name: hermes_cost
     rules:
-      - alert: AgentCostSpike
-        expr: |
-          increase(hermes_cost_usd_total[1h]) > (
-            avg_over_time(increase(hermes_cost_usd_total[1h])[7d:1h]) * 1.5
-          )
+      - alert: DailyCostBudgetExceeded
+        expr: hermes_cost_usd_daily > 2
         for: 5m
         labels:
           severity: warning
         annotations:
-          summary: "Agent {{ $labels.agent_id }} cost spike detected"
-          description: "Cost increased {{ $value | humanize }}% above normal"
+          summary: "OpenRouter daily spend above $2"
+          description: "Daily usage is currently ${{ $value }}."
 
       - alert: CostExporterDown
         expr: up{job="hermes-cost-exporter"} == 0
@@ -19,4 +16,14 @@ groups:
         labels:
           severity: critical
         annotations:
-          summary: "Hermes cost exporter is down"
+          summary: "Hermes cost exporter target is down"
+          description: "Prometheus cannot scrape the cost exporter — cost visibility is blind."
+
+      - alert: CostExporterStale
+        expr: time() - hermes_cost_last_success_timestamp_seconds > 900
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Cost exporter has not polled successfully in 15m"
+          description: "The exporter is running but OpenRouter polling is failing."
