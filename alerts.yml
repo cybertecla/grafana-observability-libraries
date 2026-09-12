@@ -2,7 +2,7 @@ groups:
   - name: hermes_cost
     rules:
       - alert: DailyCostBudgetExceeded
-        expr: hermes_cost_usd_daily > 2
+        expr: hermes_cost_daily_usd > 2
         for: 5m
         labels:
           severity: warning

@@ -8,8 +8,12 @@ rule_files:
 scrape_configs:
   - job_name: 'otel-collector'
     static_configs:
-      - targets: ['otel-collector:8889']
+      - targets: ['localhost:8889']
 
   - job_name: 'hermes-cost-exporter'
     static_configs:
-      - targets: ['hermes-cost-exporter:9101']
+      - targets: ['localhost:9101']
+
+  - job_name: 'hermes-flow-exporter'
+    static_configs:
+      - targets: ['localhost:9102']

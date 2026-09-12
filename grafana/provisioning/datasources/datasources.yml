@@ -5,19 +5,19 @@ datasources:
     uid: prometheusuid
     type: prometheus
     access: proxy
-    url: http://prometheus:9090
+    url: http://localhost:9090
     isDefault: true
 
   - name: Loki
     uid: lokiuid
     type: loki
     access: proxy
-    url: http://loki:3100
+    url: http://localhost:3100
 
   - name: Tempo
     uid: tempouid
     type: tempo
     access: proxy
-    url: http://tempo:3200
+    url: http://localhost:3200
     jsonData:
       httpMethod: GET

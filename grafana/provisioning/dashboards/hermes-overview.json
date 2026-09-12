@@ -14,7 +14,7 @@
       "title": "Spent today (USD)",
       "gridPos": { "h": 5, "w": 6, "x": 0, "y": 0 },
       "datasource": { "type": "prometheus", "uid": "prometheusuid" },
-      "targets": [{ "expr": "hermes_cost_usd_daily", "legendFormat": "today" }]
+      "targets": [{ "expr": "hermes_cost_daily_usd", "legendFormat": "today" }]
     },
     {
       "id": 2,
@@ -22,7 +22,7 @@
       "title": "Spent this week (USD)",
       "gridPos": { "h": 5, "w": 6, "x": 6, "y": 0 },
       "datasource": { "type": "prometheus", "uid": "prometheusuid" },
-      "targets": [{ "expr": "hermes_cost_usd_weekly", "legendFormat": "7d" }]
+      "targets": [{ "expr": "hermes_cost_weekly_usd", "legendFormat": "7d" }]
     },
     {
       "id": 3,
@@ -30,7 +30,7 @@
       "title": "Spent this month (USD)",
       "gridPos": { "h": 5, "w": 6, "x": 12, "y": 0 },
       "datasource": { "type": "prometheus", "uid": "prometheusuid" },
-      "targets": [{ "expr": "hermes_cost_usd_monthly", "legendFormat": "30d" }]
+      "targets": [{ "expr": "hermes_cost_monthly_usd", "legendFormat": "30d" }]
     },
     {
       "id": 4,
@@ -38,7 +38,7 @@
       "title": "Spent all-time (USD)",
       "gridPos": { "h": 5, "w": 6, "x": 18, "y": 0 },
       "datasource": { "type": "prometheus", "uid": "prometheusuid" },
-      "targets": [{ "expr": "hermes_cost_usd_total", "legendFormat": "all" }]
+      "targets": [{ "expr": "hermes_cost_total_usd", "legendFormat": "all" }]
     },
     {
       "id": 5,
@@ -46,7 +46,7 @@
       "title": "Cumulative OpenRouter spend (USD)",
       "gridPos": { "h": 8, "w": 12, "x": 0, "y": 5 },
       "datasource": { "type": "prometheus", "uid": "prometheusuid" },
-      "targets": [{ "expr": "hermes_cost_usd_total", "legendFormat": "total" }]
+      "targets": [{ "expr": "hermes_cost_total_usd", "legendFormat": "total" }]
     },
     {
       "id": 6,

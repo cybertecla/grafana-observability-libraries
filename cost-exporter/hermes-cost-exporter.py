@@ -41,13 +41,13 @@ def poll_once() -> None:
     try:
         data = _fetch().get("data", {})
         with _lock:
-            _metrics["hermes_cost_usd_total"] = float(data.get("usage") or 0)
+            _metrics["hermes_cost_total_usd"] = float(data.get("usage") or 0)
             if "usage_daily" in data and data["usage_daily"] is not None:
-                _metrics["hermes_cost_usd_daily"] = float(data["usage_daily"])
+                _metrics["hermes_cost_daily_usd"] = float(data["usage_daily"])
             if "usage_weekly" in data and data["usage_weekly"] is not None:
-                _metrics["hermes_cost_usd_weekly"] = float(data["usage_weekly"])
+                _metrics["hermes_cost_weekly_usd"] = float(data["usage_weekly"])
             if "usage_monthly" in data and data["usage_monthly"] is not None:
-                _metrics["hermes_cost_usd_monthly"] = float(data["usage_monthly"])
+                _metrics["hermes_cost_monthly_usd"] = float(data["usage_monthly"])
             _metrics["hermes_cost_free_tier"] = 1.0 if data.get("is_free_tier", False) else 0.0
             _metrics["hermes_cost_last_success_timestamp_seconds"] = time.time()
     except Exception as exc:  # noqa: BLE001 — exporter must never die

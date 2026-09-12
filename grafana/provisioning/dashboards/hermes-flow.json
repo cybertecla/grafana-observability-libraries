@@ -1,0 +1,62 @@
+{
+  "uid": "hermes-flow",
+  "title": "Hermes Flow — Agents, Skills, Gateways, Cron",
+  "tags": ["hermes"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "time": { "from": "now-7d", "to": "now" },
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "Gateway status (1 = active)",
+      "gridPos": { "h": 6, "w": 24, "x": 0, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [
+        { "expr": "hermes_gateway_up{unit=\"hermes-gateway\"}", "legendFormat": "default" },
+        { "expr": "hermes_gateway_up{unit=\"hermes-gateway-guru\"}", "legendFormat": "guru" },
+        { "expr": "hermes_gateway_up{unit=\"hermes-gateway-sniper\"}", "legendFormat": "sniper" }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "bargauge",
+      "title": "Skill usage — top 12 (root profile)",
+      "gridPos": { "h": 10, "w": 12, "x": 0, "y": 6 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [
+        { "expr": "topk(12, sum by (skill) (hermes_skill_uses_total{scope=\"root\"}))", "legendFormat": "{{skill}}" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "uses" }, "overrides": [] }
+    },
+    {
+      "id": 3,
+      "type": "table",
+      "title": "Per-profile skill usage",
+      "gridPos": { "h": 10, "w": 12, "x": 12, "y": 6 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [
+        { "expr": "sum by (skill, scope) (hermes_skill_uses_total)", "legendFormat": "{{scope}}/{{skill}}" }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": [
+          { "matcher": { "id": "sum/scope/skill", "type": "allSeries" }, "properties": [] }
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "type": "timeseries",
+      "title": "Cron runs vs failures (24h)",
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 16 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [
+        { "expr": "sum(increase(hermes_cron_runs_total[1d]))", "legendFormat": "runs" },
+        { "expr": "sum(increase(hermes_cron_failures_total[1d]))", "legendFormat": "failures" }
+      ]
+    }
+  ]
+}

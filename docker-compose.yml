@@ -5,6 +5,7 @@ services:
     ports:
       - "4317:4317"   # OTLP gRPC
       - "4318:4318"   # OTLP HTTP
+      - "8889:8889"   # prometheus exporter (prometheus scrapes localhost:8889)
     volumes:
       - ./otel-config.yaml:/etc/otel/config.yaml:ro
     command: ["--config=/etc/otel/config.yaml"]
@@ -15,6 +16,7 @@ services:
   prometheus:
     image: docker.io/prom/prometheus:latest
     container_name: prometheus
+    network_mode: host
     ports:
       - "9090:9090"
     volumes:
@@ -52,6 +54,7 @@ services:
   grafana:
     image: docker.io/grafana/grafana:latest
     container_name: grafana
+    network_mode: host
     ports:
       - "3001:3000"
     environment:
@@ -80,19 +83,6 @@ services:
     command: ["-config.file=/etc/promtail/config.yml"]
     depends_on:
       - loki
-    restart: unless-stopped
-
-  hermes-cost-exporter:
-
-    build: ./cost-exporter
-    container_name: hermes-cost-exporter
-    ports:
-      - "9101:9101"
-    environment:
-      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
-      - POLL_INTERVAL_SECONDS=60
-    depends_on:
-      - prometheus
     restart: unless-stopped
 
 volumes:
