@@ -21,7 +21,7 @@ import urllib.request
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 API_KEY = os.environ.get("OPENROUTER_API_KEY", "")
-ENDPOINT = "https://openrouter.ai/api/v1/auth/key"
+ENDPOINT = "https://openrouter.ai/api/v1/key"
 POLL_INTERVAL = int(os.environ.get("POLL_INTERVAL_SECONDS", "60"))
 PORT = int(os.environ.get("EXPORTER_PORT", "9101"))
 
