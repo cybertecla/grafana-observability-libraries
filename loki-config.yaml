@@ -1,6 +1,14 @@
 # Loki single-node (official example shape) — sqlite kvstore, no exotic keys
 auth_enabled: false
 
+# Loki throttles ALL writes when the WAL's filesystem passes 90% — this box
+# sits at ~91-97% (home partition), which wedged the ingester ("Ingester is
+# shutting down" on every push). 0.98 keeps protection against a truly full
+# disk while letting writes flow at current usage.
+ingester:
+  wal:
+    disk_full_threshold: 0.98
+
 common:
   instance_addr: 127.0.0.1
   path_prefix: /loki
