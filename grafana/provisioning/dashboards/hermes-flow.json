@@ -10,9 +10,20 @@
   "panels": [
     {
       "id": 1,
+      "type": "bargauge",
+      "title": "Sessions per profile (proof of multi-agent life)",
+      "gridPos": { "h": 6, "w": 24, "x": 0, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [
+        { "expr": "sum by (profile) (hermes_sessions_total)", "legendFormat": "{{profile}}" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "sessions" }, "overrides": [] }
+    },
+    {
+      "id": 2,
       "type": "timeseries",
       "title": "Gateway status (1 = active)",
-      "gridPos": { "h": 6, "w": 24, "x": 0, "y": 0 },
+      "gridPos": { "h": 6, "w": 24, "x": 0, "y": 6 },
       "datasource": { "type": "prometheus", "uid": "prometheusuid" },
       "targets": [
         { "expr": "hermes_gateway_up{unit=\"hermes-gateway\"}", "legendFormat": "default" },
@@ -21,10 +32,10 @@
       ]
     },
     {
-      "id": 2,
+      "id": 3,
       "type": "bargauge",
       "title": "Skill usage — top 12 (root profile)",
-      "gridPos": { "h": 10, "w": 12, "x": 0, "y": 6 },
+      "gridPos": { "h": 10, "w": 12, "x": 0, "y": 12 },
       "datasource": { "type": "prometheus", "uid": "prometheusuid" },
       "targets": [
         { "expr": "topk(12, sum by (skill) (hermes_skill_uses_total{scope=\"root\"}))", "legendFormat": "{{skill}}" }
@@ -32,10 +43,10 @@
       "fieldConfig": { "defaults": { "unit": "uses" }, "overrides": [] }
     },
     {
-      "id": 3,
+      "id": 4,
       "type": "table",
       "title": "Per-profile skill usage",
-      "gridPos": { "h": 10, "w": 12, "x": 12, "y": 6 },
+      "gridPos": { "h": 10, "w": 12, "x": 12, "y": 12 },
       "datasource": { "type": "prometheus", "uid": "prometheusuid" },
       "targets": [
         { "expr": "sum by (skill, scope) (hermes_skill_uses_total)", "legendFormat": "{{scope}}/{{skill}}" }
@@ -48,10 +59,10 @@
       }
     },
     {
-      "id": 4,
+      "id": 5,
       "type": "timeseries",
       "title": "Cron runs vs failures (24h)",
-      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 16 },
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 22 },
       "datasource": { "type": "prometheus", "uid": "prometheusuid" },
       "targets": [
         { "expr": "sum(increase(hermes_cron_runs_total[1d]))", "legendFormat": "runs" },

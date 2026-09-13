@@ -108,12 +108,31 @@ def _collect_gateways():
         _emit("hermes_gateway_up", {"unit": unit.split(".")[0]}, up)
 
 
+def _collect_sessions():
+    """Per-profile session counts from state.db — the 'is orchestration real' metric."""
+    targets = [("default", os.path.join(HERMES_HOME, "state.db"))]
+    for pdir in glob.glob(os.path.join(HERMES_HOME, "profiles", "*")):
+        if os.path.isdir(pdir):
+            targets.append((os.path.basename(pdir), os.path.join(pdir, "state.db")))
+    for profile, db in targets:
+        try:
+            if not os.path.exists(db):
+                continue
+            con = sqlite3.connect(f"file:{db}?mode=ro", uri=True, timeout=2)
+            row = con.execute("SELECT COUNT(*) FROM sessions").fetchone()
+            con.close()
+            _emit("hermes_sessions_total", {"profile": profile}, row[0] if row else 0)
+        except Exception as exc:
+            print(f"[flow] sessions {profile}: {exc!r}", flush=True)
+
+
 def _collect():
     global _error
     try:
         _collect_skills()
         _collect_cron()
         _collect_gateways()
+        _collect_sessions()
         _metrics["hermes_flow_last_success_timestamp_seconds"] = time.time()
     except Exception as exc:  # never die
         _error += 1
