@@ -4,7 +4,7 @@
   "tags": ["hermes"],
   "timezone": "browser",
   "schemaVersion": 39,
-  "version": 3,
+  "version": 4,
   "refresh": "30s",
   "time": { "from": "now-24h", "to": "now" },
   "panels": [
@@ -55,7 +55,7 @@
       "gridPos": { "h": 8, "w": 12, "x": 0, "y": 4 },
       "datasource": { "type": "prometheus", "uid": "prometheusuid" },
       "targets": [{ "expr": "sum by (profile) (hermes_session_cost_total)", "legendFormat": "{{profile}}", "instant": true, "format": "table" }],
-      "transformations": [{ "id": "organize", "options": { "excludeByName": { "Time": true }, "indexByName": {}, "renameByName": { "profile": "Profile", "Value": "Spend (USD)" } } }],
+      "transformations": [{ "id": "sortBy", "options": { "fields": {}, "sort": [{ "field": "Value", "desc": true }] } }, { "id": "organize", "options": { "excludeByName": { "Time": true }, "indexByName": {}, "renameByName": { "profile": "Profile", "Value": "Spend (USD)" } } }],
       "fieldConfig": { "defaults": { "unit": "currencyusd" }, "overrides": [] }
     },
     {
@@ -70,7 +70,7 @@
       "gridPos": { "h": 8, "w": 12, "x": 0, "y": 12 },
       "datasource": { "type": "prometheus", "uid": "prometheusuid" },
       "targets": [{ "expr": "sum by (model) (increase(hermes_session_cost_total[1d]))", "legendFormat": "{{model}}" }],
-      "fieldConfig": { "defaults": { "unit": "currencyusd" }, "overrides": [] },
+      "fieldConfig": { "defaults": { "unit": "currencyusd", "custom": { "stacking": { "mode": "normal" }, "fillOpacity": 30 } }, "overrides": [] },
       "options": { "legend": { "displayMode": "list", "placement": "bottom" } }
     },
     {
@@ -81,11 +81,19 @@
       "fieldConfig": { "defaults": { "unit": "sessions" }, "overrides": [] }
     },
     {
-      "id": 11, "type": "timeseries", "title": "Gateway units (1 = active)",
-      "gridPos": { "h": 6, "w": 12, "x": 0, "y": 20 },
+      "id": 11, "type": "table", "title": "Sessions by source per profile (gateway proof per agent)",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 20 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "sum by (profile, source) (hermes_sessions_by_source_total)", "legendFormat": "{{profile}}/{{source}}", "instant": true, "format": "table" }],
+      "transformations": [{ "id": "sortBy", "options": { "fields": {}, "sort": [{ "field": "Value", "desc": true }] } }, { "id": "organize", "options": { "excludeByName": { "Time": true }, "indexByName": {}, "renameByName": { "profile": "Profile", "source": "Source", "Value": "Sessions" } } }],
+      "fieldConfig": { "defaults": {}, "overrides": [] }
+    },
+    {
+      "id": 12, "type": "timeseries", "title": "Gateway units (1 = active)",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 20 },
       "datasource": { "type": "prometheus", "uid": "prometheusuid" },
       "targets": [
-        { "expr": "hermes_gateway_up{unit=\"hermes-gateway\"}", "legendFormat": "default" },
+        { "expr": "hermes_gateway_up{unit=\"hermes-gateway\"}", "legendFormat": "Orchestrator" },
         { "expr": "hermes_gateway_up{unit=\"hermes-gateway-guru\"}", "legendFormat": "guru" },
         { "expr": "hermes_gateway_up{unit=\"hermes-gateway-sniper\"}", "legendFormat": "sniper" },
         { "expr": "hermes_gateway_up{unit=\"hermes-gateway-builder\"}", "legendFormat": "builder" }
@@ -93,36 +101,36 @@
       "fieldConfig": { "defaults": { "unit": "bool" }, "overrides": [] }
     },
     {
-      "id": 12, "type": "timeseries", "title": "Sessions per profile / day",
-      "gridPos": { "h": 6, "w": 12, "x": 12, "y": 20 },
+      "id": 13, "type": "timeseries", "title": "Sessions per profile / day",
+      "gridPos": { "h": 6, "w": 12, "x": 0, "y": 28 },
       "datasource": { "type": "prometheus", "uid": "prometheusuid" },
       "targets": [{ "expr": "sum by (profile) (increase(hermes_sessions_total[1d]))", "legendFormat": "{{profile}}" }],
       "fieldConfig": { "defaults": { "unit": "sessions" }, "overrides": [] }
     },
     {
-      "id": 13, "type": "timeseries", "title": "Log lines by source (5m)",
-      "gridPos": { "h": 6, "w": 12, "x": 0, "y": 26 },
+      "id": 14, "type": "timeseries", "title": "Tokens by kind / day (incl. cache)",
+      "gridPos": { "h": 6, "w": 12, "x": 12, "y": 28 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "sum by (kind) (increase(hermes_session_tokens_total[1d]))", "legendFormat": "{{kind}}" }],
+      "fieldConfig": { "defaults": { "unit": "short", "custom": { "stacking": { "mode": "normal" }, "fillOpacity": 30 } }, "overrides": [] }
+    },
+    {
+      "id": 15, "type": "timeseries", "title": "Log lines by source (5m)",
+      "gridPos": { "h": 6, "w": 12, "x": 0, "y": 34 },
       "datasource": { "type": "loki", "uid": "lokiuid" },
       "targets": [{ "expr": "sum by (source) (count_over_time({job=\"hermes\"}[5m]))", "legendFormat": "{{source}}" }],
       "fieldConfig": { "defaults": { "unit": "loglines" }, "overrides": [] }
     },
     {
-      "id": 14, "type": "timeseries", "title": "Error lines by source (5m)",
-      "gridPos": { "h": 6, "w": 12, "x": 12, "y": 26 },
+      "id": 16, "type": "timeseries", "title": "Error lines by source (5m)",
+      "gridPos": { "h": 6, "w": 12, "x": 12, "y": 34 },
       "datasource": { "type": "loki", "uid": "lokiuid" },
       "targets": [{ "expr": "sum by (source) (count_over_time({job=\"hermes\"} |~ \"(?i)error\" [5m]))", "legendFormat": "{{source}}" }],
       "fieldConfig": { "defaults": { "unit": "loglines" }, "overrides": [] }
     },
     {
-      "id": 15, "type": "timeseries", "title": "Tokens by kind / day",
-      "gridPos": { "h": 6, "w": 12, "x": 0, "y": 32 },
-      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
-      "targets": [{ "expr": "sum by (kind) (increase(hermes_session_tokens_total[1d]))", "legendFormat": "{{kind}}" }],
-      "fieldConfig": { "defaults": { "unit": "tokens" }, "overrides": [] }
-    },
-    {
-      "id": 16, "type": "timeseries", "title": "Exporter health — poll age & errors",
-      "gridPos": { "h": 6, "w": 12, "x": 12, "y": 32 },
+      "id": 17, "type": "timeseries", "title": "Exporter health — poll age & errors",
+      "gridPos": { "h": 6, "w": 24, "x": 0, "y": 40 },
       "datasource": { "type": "prometheus", "uid": "prometheusuid" },
       "targets": [
         { "expr": "time() - hermes_cost_last_success_timestamp_seconds", "legendFormat": "cost poll age (s)" },

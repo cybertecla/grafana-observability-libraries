@@ -4,9 +4,25 @@
   "tags": ["hermes"],
   "timezone": "browser",
   "schemaVersion": 39,
-  "version": 2,
+  "version": 3,
   "refresh": "30s",
   "time": { "from": "now-7d", "to": "now" },
+  "templating": {
+    "list": [
+      {
+        "name": "profile",
+        "label": "Profile",
+        "type": "query",
+        "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+        "query": { "query": "label_values(hermes_sessions_by_model_total, profile)", "refId": "A" },
+        "refresh": 2,
+        "includeAll": true,
+        "allValue": ".*",
+        "multi": false,
+        "sort": 1
+      }
+    ]
+  },
   "panels": [
     {
       "id": 1, "type": "bargauge", "title": "Sessions per profile (multi-agent life)",
@@ -19,15 +35,15 @@
       "id": 2, "type": "table", "title": "Sessions per model per profile",
       "gridPos": { "h": 8, "w": 12, "x": 0, "y": 6 },
       "datasource": { "type": "prometheus", "uid": "prometheusuid" },
-      "targets": [{ "expr": "sum by (profile, model) (hermes_sessions_by_model_total)", "legendFormat": "{{profile}}/{{model}}", "instant": true, "format": "table" }],
-      "transformations": [{ "id": "organize", "options": { "excludeByName": { "Time": true }, "indexByName": {}, "renameByName": { "profile": "Profile", "model": "Model", "Value": "Sessions" } } }],
+      "targets": [{ "expr": "sum by (profile, model) (hermes_sessions_by_model_total{profile=~\"$profile\"})", "legendFormat": "{{profile}}/{{model}}", "instant": true, "format": "table" }],
+      "transformations": [{ "id": "sortBy", "options": { "fields": {}, "sort": [{ "field": "Value", "desc": true }] } }, { "id": "organize", "options": { "excludeByName": { "Time": true }, "indexByName": {}, "renameByName": { "profile": "Profile", "model": "Model", "Value": "Sessions" } } }],
       "fieldConfig": { "defaults": {}, "overrides": [] }
     },
     {
-      "id": 3, "type": "bargauge", "title": "Skill usage — top 15 (all scopes)",
+      "id": 3, "type": "bargauge", "title": "Skill usage — top 15",
       "gridPos": { "h": 8, "w": 12, "x": 12, "y": 6 },
       "datasource": { "type": "prometheus", "uid": "prometheusuid" },
-      "targets": [{ "expr": "topk(15, sum by (skill) (hermes_skill_uses_total))", "legendFormat": "{{skill}}" }],
+      "targets": [{ "expr": "topk(15, sum by (skill) (hermes_skill_uses_total{scope=~\"$profile\"}))", "legendFormat": "{{skill}}" }],
       "fieldConfig": { "defaults": { "unit": "uses" }, "overrides": [] }
     },
     {
@@ -42,7 +58,7 @@
       "id": 5, "type": "timeseries", "title": "Skill use trends — top 8 / day",
       "gridPos": { "h": 10, "w": 12, "x": 12, "y": 14 },
       "datasource": { "type": "prometheus", "uid": "prometheusuid" },
-      "targets": [{ "expr": "topk(8, sum by (skill) (increase(hermes_skill_uses_total[1d])))", "legendFormat": "{{skill}}" }],
+      "targets": [{ "expr": "topk(8, sum by (skill) (increase(hermes_skill_uses_total{scope=~\"$profile\"}[1d])))", "legendFormat": "{{skill}}" }],
       "fieldConfig": { "defaults": { "unit": "uses" }, "overrides": [] }
     },
     {

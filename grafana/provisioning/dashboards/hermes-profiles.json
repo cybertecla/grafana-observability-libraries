@@ -1,0 +1,127 @@
+{
+  "uid": "hermes-profiles",
+  "title": "Hermes Profiles — per-agent deep dive",
+  "tags": ["hermes"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "time": { "from": "now-7d", "to": "now" },
+  "templating": {
+    "list": [
+      {
+        "name": "profile",
+        "label": "Profile",
+        "type": "query",
+        "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+        "query": { "query": "label_values(hermes_sessions_by_model_total, profile)", "refId": "A" },
+        "refresh": 2,
+        "includeAll": true,
+        "allValue": ".*",
+        "multi": false,
+        "sort": 1
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1, "type": "stat", "title": "Sessions",
+      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "sum(hermes_sessions_by_model_total{profile=~\"$profile\"})", "legendFormat": "sessions" }],
+      "fieldConfig": { "defaults": { "unit": "sessions" }, "overrides": [] }
+    },
+    {
+      "id": 2, "type": "stat", "title": "Cost all-time",
+      "gridPos": { "h": 4, "w": 4, "x": 4, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "sum(hermes_session_cost_total{profile=~\"$profile\"})", "legendFormat": "usd" }],
+      "fieldConfig": { "defaults": { "unit": "currencyusd" }, "overrides": [] }
+    },
+    {
+      "id": 3, "type": "stat", "title": "Cost last 24h",
+      "gridPos": { "h": 4, "w": 4, "x": 8, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "sum(increase(hermes_session_cost_total{profile=~\"$profile\"}[1d]))", "legendFormat": "usd" }],
+      "fieldConfig": { "defaults": { "unit": "currencyusd" }, "overrides": [] }
+    },
+    {
+      "id": 4, "type": "stat", "title": "Tokens",
+      "gridPos": { "h": 4, "w": 4, "x": 12, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "sum(hermes_session_tokens_total{profile=~\"$profile\"})", "legendFormat": "tokens" }],
+      "fieldConfig": { "defaults": { "unit": "short" }, "overrides": [] }
+    },
+    {
+      "id": 5, "type": "stat", "title": "Tool calls",
+      "gridPos": { "h": 4, "w": 4, "x": 16, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "sum(hermes_session_tool_calls_total{profile=~\"$profile\"})", "legendFormat": "calls" }],
+      "fieldConfig": { "defaults": { "unit": "short" }, "overrides": [] }
+    },
+    {
+      "id": 6, "type": "stat", "title": "Messages",
+      "gridPos": { "h": 4, "w": 4, "x": 20, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "sum(hermes_session_messages_total{profile=~\"$profile\"})", "legendFormat": "msgs" }],
+      "fieldConfig": { "defaults": { "unit": "short" }, "overrides": [] }
+    },
+    {
+      "id": 7, "type": "table", "title": "Models used",
+      "gridPos": { "h": 10, "w": 12, "x": 0, "y": 4 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "sum by (model) (hermes_sessions_by_model_total{profile=~\"$profile\"})", "legendFormat": "{{model}}", "instant": true, "format": "table" }],
+      "transformations": [{ "id": "sortBy", "options": { "fields": {}, "sort": [{ "field": "Value", "desc": true }] } }, { "id": "organize", "options": { "excludeByName": { "Time": true }, "indexByName": {}, "renameByName": { "model": "Model", "Value": "Sessions" } } }],
+      "fieldConfig": { "defaults": {}, "overrides": [] }
+    },
+    {
+      "id": 8, "type": "bargauge", "title": "Sessions by source (which gateway/channel)",
+      "gridPos": { "h": 10, "w": 12, "x": 12, "y": 4 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "sum by (source) (hermes_sessions_by_source_total{profile=~\"$profile\"})", "legendFormat": "{{source}}" }],
+      "fieldConfig": { "defaults": { "unit": "sessions" }, "overrides": [] }
+    },
+    {
+      "id": 9, "type": "timeseries", "title": "Cost per model / day",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 14 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "sum by (model) (increase(hermes_session_cost_total{profile=~\"$profile\"}[1d]))", "legendFormat": "{{model}}" }],
+      "fieldConfig": { "defaults": { "unit": "currencyusd", "custom": { "stacking": { "mode": "normal" }, "fillOpacity": 30 } }, "overrides": [] }
+    },
+    {
+      "id": 10, "type": "timeseries", "title": "Tokens by kind / day (incl. cache)",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 14 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "sum by (kind) (increase(hermes_session_tokens_total{profile=~\"$profile\"}[1d]))", "legendFormat": "{{kind}}" }],
+      "fieldConfig": { "defaults": { "unit": "short", "custom": { "stacking": { "mode": "normal" }, "fillOpacity": 30 } }, "overrides": [] }
+    },
+    {
+      "id": 11, "type": "bargauge", "title": "Skills used (this profile)",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 22 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "topk(12, sum by (skill) (hermes_skill_uses_total{scope=~\"$profile\"}))", "legendFormat": "{{skill}}" }],
+      "fieldConfig": { "defaults": { "unit": "uses" }, "overrides": [] }
+    },
+    {
+      "id": 12, "type": "timeseries", "title": "Skill use trends — top 8",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 22 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "topk(8, sum by (skill) (increase(hermes_skill_uses_total{scope=~\"$profile\"}[1d])))", "legendFormat": "{{skill}}" }],
+      "fieldConfig": { "defaults": { "unit": "uses" }, "overrides": [] }
+    },
+    {
+      "id": 13, "type": "timeseries", "title": "Sessions per day",
+      "gridPos": { "h": 6, "w": 12, "x": 0, "y": 30 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "sum(increase(hermes_sessions_total{profile=~\"$profile\"}[1d]))", "legendFormat": "sessions" }],
+      "fieldConfig": { "defaults": { "unit": "sessions" }, "overrides": [] }
+    },
+    {
+      "id": 14, "type": "timeseries", "title": "Avg cost per session by model",
+      "gridPos": { "h": 6, "w": 12, "x": 12, "y": 30 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "sum by (model) (hermes_session_cost_total{profile=~\"$profile\"}) / sum by (model) (hermes_sessions_by_model_total{profile=~\"$profile\"})", "legendFormat": "{{model}}" }],
+      "fieldConfig": { "defaults": { "unit": "currencyusd" }, "overrides": [] }
+    }
+  ]
+}

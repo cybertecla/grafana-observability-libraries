@@ -27,6 +27,24 @@ POLL_INTERVAL = int(os.environ.get("FLOW_POLL_SECONDS", "30"))
 PORT = int(os.environ.get("FLOW_EXPORTER_PORT", "9102"))
 CURSOR_FILE = os.path.join(HERMES_HOME, "state", "flow-exporter-cursors.json")
 
+
+def _root_label():
+    """Prometheus profile label for the root/default profile — mirrors the
+    display name Hermes stores in profile.yaml (rename-aware), falls back to
+    'default' so a missing/broken file can never break the exporter."""
+    try:
+        with open(os.path.join(HERMES_HOME, "profile.yaml")) as f:
+            for line in f:
+                if line.startswith("display_name:"):
+                    name = line.split(":", 1)[1].strip().strip('"\'')
+                    return name or "default"
+    except Exception:
+        pass
+    return "default"
+
+
+ROOT_LABEL = _root_label()
+
 _lock = threading.Lock()
 _metrics = {}  # full prometheus line (with labels) -> value
 _error = 0
@@ -113,7 +131,7 @@ def _collect_gateways():
 
 def _collect_sessions():
     """Per-profile session counts from state.db — the 'is orchestration real' metric."""
-    targets = [("default", os.path.join(HERMES_HOME, "state.db"))]
+    targets = [(ROOT_LABEL, os.path.join(HERMES_HOME, "state.db"))]
     for pdir in glob.glob(os.path.join(HERMES_HOME, "profiles", "*")):
         if os.path.isdir(pdir):
             targets.append((os.path.basename(pdir), os.path.join(pdir, "state.db")))
@@ -156,7 +174,7 @@ def _collect_session_usage():
     incremental via a per-profile started_at cursor (idx_sessions_started keeps
     the delta queries cheap even on the 400MB+ root db).
     """
-    targets = [("default", os.path.join(HERMES_HOME, "state.db"))]
+    targets = [(ROOT_LABEL, os.path.join(HERMES_HOME, "state.db"))]
     for pdir in glob.glob(os.path.join(HERMES_HOME, "profiles", "*")):
         if os.path.isdir(pdir):
             targets.append((os.path.basename(pdir), os.path.join(pdir, "state.db")))
