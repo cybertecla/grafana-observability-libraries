@@ -22,6 +22,14 @@ import time
 
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
+# Current-session token/cost families (staged milestone 2): one bounded,
+# cursor-free re-read per poll; family swap is atomic under _lock.
+import session_cost_metrics as _session_cost_metrics
+# Prompt-budget + skills-disabled library (milestone 3): slow-cadence
+# `hermes prompt-size --json` collector + stdlib config scan for the
+# disabled-skill filter below.
+import prompt_size_metrics as _prompt_size_metrics
+
 HERMES_HOME = os.environ.get("HERMES_HOME", os.path.expanduser("~/.hermes"))
 POLL_INTERVAL = int(os.environ.get("FLOW_POLL_SECONDS", "30"))
 PORT = int(os.environ.get("FLOW_EXPORTER_PORT", "9102"))
@@ -68,13 +76,27 @@ def _read_usage(path):
         return {}
 
 
+def _disabled_skills_for(scope_dir):
+    """skills.disabled set for one profile scope (root or named profile dir).
+
+    The usage ledgers carry phantom/disabled entries (clone poison, skills
+    disabled after being tracked) — filtering here makes the panels the user
+    sees match the sessions the user runs, independent of ledger hygiene.
+    """
+    return _prompt_size_metrics.read_disabled_skills(os.path.join(scope_dir, "config.yaml"))
+
+
 def _collect_skills():
     # root scope
     usage = _read_usage(os.path.join(HERMES_HOME, "skills", ".usage.json"))
+    disabled = _disabled_skills_for(HERMES_HOME)
+    _emit("hermes_skill_disabled_total", {"scope": ROOT_LABEL}, len(disabled))
     for skill, meta in usage.items():
-        _emit("hermes_skill_uses_total", {"skill": skill, "scope": "root"}, meta.get("use_count", 0))
-        _emit("hermes_skill_views_total", {"skill": skill, "scope": "root"}, meta.get("view_count", 0))
-        _emit("hermes_skill_active", {"skill": skill, "scope": "root"}, 1 if meta.get("state") == "active" else 0)
+        if skill in disabled:
+            continue
+        _emit("hermes_skill_uses_total", {"skill": skill, "scope": ROOT_LABEL}, meta.get("use_count", 0))
+        _emit("hermes_skill_views_total", {"skill": skill, "scope": ROOT_LABEL}, meta.get("view_count", 0))
+        _emit("hermes_skill_active", {"skill": skill, "scope": ROOT_LABEL}, 1 if meta.get("state") == "active" else 0)
     # per-profile scopes
     profile_dirs = [
         d for d in glob.glob(os.path.join(HERMES_HOME, "profiles", "*"))
@@ -83,10 +105,21 @@ def _collect_skills():
     for pdir in profile_dirs:
         profile = os.path.basename(pdir)
         usage = _read_usage(os.path.join(pdir, "skills", ".usage.json"))
+        disabled = _disabled_skills_for(pdir)
+        _emit("hermes_skill_disabled_total", {"scope": profile}, len(disabled))
         for skill, meta in usage.items():
+            if skill in disabled:
+                continue
             _emit("hermes_skill_uses_total", {"skill": skill, "scope": profile}, meta.get("use_count", 0))
             _emit("hermes_skill_views_total", {"skill": skill, "scope": profile}, meta.get("view_count", 0))
             _emit("hermes_skill_active", {"skill": skill, "scope": profile}, 1 if meta.get("state") == "active" else 0)
+
+
+def _collect_prompt_sizes():
+    """Merge the slow-cadence prompt-size snapshot into the metric map."""
+    for label, rows in _prompt_size_collector.snapshot().items():
+        for name, labels, value in rows:
+            _emit(name, {**labels, "profile": label}, value)
 
 
 def _collect_cron():
@@ -215,6 +248,10 @@ def _collect_session_usage():
             model_rows = cur.fetchall()
             cur.execute("SELECT source, COUNT(*) FROM sessions " + where + " GROUP BY source", params)
             src_rows = cur.fetchall()
+            cur.execute("SELECT model, source, COUNT(*) FROM sessions " + where + " GROUP BY model, source", params)
+            msrc_rows = cur.fetchall()
+            cur.execute("SELECT title, SUM(input_tokens), SUM(cache_read_tokens), SUM(cache_write_tokens), SUM(output_tokens), SUM(reasoning_tokens) FROM sessions " + ("WHERE source='cron' AND started_at > ?" if cursor_ts else "WHERE source='cron'") + " GROUP BY title", params)
+            cjob_rows = cur.fetchall()
             con.close()
 
             for model, n, itok, otok, crtok, cwtok, rtok, cost, tools, msgs in model_rows:
@@ -243,6 +280,23 @@ def _collect_session_usage():
                 _emit("hermes_sessions_by_source_total",
                       {"profile": profile, "source": source or "unknown"}, _totals[sk])
 
+            for model, source, n in msrc_rows:
+                m = model or "unknown"
+                s = source or "unknown"
+                kk = ("msrc", profile, m, s)
+                _totals[kk] = _totals.get(kk, 0.0) + n
+                _emit("hermes_sessions_by_model_source_total",
+                      {"profile": profile, "model": m, "source": s}, _totals[kk])
+
+            for title, itok, crtok, cwtok, otok, rtok in cjob_rows:
+                job = (title or "unknown").split(" · ", 1)[0][:60]
+                for kind, val in (("input", itok), ("cache_read", crtok), ("cache_write", cwtok),
+                                  ("output", otok), ("reasoning", rtok)):
+                    kkk = ("cjob", profile, job, kind)
+                    _totals[kkk] = _totals.get(kkk, 0.0) + (val or 0)
+                    _emit("hermes_cron_session_tokens_total",
+                          {"profile": profile, "job": job, "kind": kind}, _totals[kkk])
+
             cursors[profile] = max_ts
         except Exception as exc:
             print(f"[flow] session usage {profile}: {exc!r}", flush=True)
@@ -252,11 +306,14 @@ def _collect_session_usage():
 def _collect():
     global _error
     try:
+        _session_cost_metrics.collect_session_cost_metrics(
+            _metrics, _lock, ROOT_LABEL, os.path.join(HERMES_HOME, "state.db"))
         _collect_skills()
         _collect_cron()
         _collect_gateways()
         _collect_sessions()
         _collect_session_usage()
+        _collect_prompt_sizes()
         _metrics["hermes_flow_last_success_timestamp_seconds"] = time.time()
     except Exception as exc:  # never die
         _error += 1
@@ -293,10 +350,14 @@ class Handler(BaseHTTPRequestHandler):
         pass
 
 
+_prompt_size_collector = _prompt_size_metrics.Collector(HERMES_HOME)
+
+
 def main():
+    _prompt_size_collector.start()
     threading.Thread(target=_loop, daemon=True).start()
     print(f"[flow] listening on :{PORT}", flush=True)
-    ThreadingHTTPServer(("0.0.0.0", PORT), Handler).serve_forever()
+    ThreadingHTTPServer(("127.0.0.1", PORT), Handler).serve_forever()
 
 
 if __name__ == "__main__":
