@@ -92,7 +92,7 @@ def main() -> None:
         raise SystemExit("OPENROUTER_API_KEY not set")
     threading.Thread(target=poll_loop, daemon=True).start()
     print(f"[cost-exporter] listening on :{PORT}", flush=True)
-    ThreadingHTTPServer(("0.0.0.0", PORT), Handler).serve_forever()
+    ThreadingHTTPServer(("127.0.0.1", PORT), Handler).serve_forever()
 
 
 if __name__ == "__main__":
