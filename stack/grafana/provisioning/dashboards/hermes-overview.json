@@ -1,0 +1,144 @@
+{
+  "uid": "hermes-overview",
+  "title": "Hermes Observability — Overview",
+  "tags": ["hermes"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 4,
+  "refresh": "30s",
+  "time": { "from": "now-24h", "to": "now" },
+  "panels": [
+    {
+      "id": 1, "type": "stat", "title": "Spent today (USD)",
+      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "hermes_cost_daily_usd", "legendFormat": "today" }],
+      "fieldConfig": { "defaults": { "unit": "currencyusd" }, "overrides": [] }
+    },
+    {
+      "id": 2, "type": "stat", "title": "Spent this week (USD)",
+      "gridPos": { "h": 4, "w": 4, "x": 4, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "hermes_cost_weekly_usd", "legendFormat": "7d" }],
+      "fieldConfig": { "defaults": { "unit": "currencyusd" }, "overrides": [] }
+    },
+    {
+      "id": 3, "type": "stat", "title": "Spent this month (USD)",
+      "gridPos": { "h": 4, "w": 4, "x": 8, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "hermes_cost_monthly_usd", "legendFormat": "30d" }],
+      "fieldConfig": { "defaults": { "unit": "currencyusd" }, "overrides": [] }
+    },
+    {
+      "id": 4, "type": "stat", "title": "All-time OpenRouter (USD)",
+      "gridPos": { "h": 4, "w": 4, "x": 12, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "hermes_cost_total_usd", "legendFormat": "all" }],
+      "fieldConfig": { "defaults": { "unit": "currencyusd" }, "overrides": [] }
+    },
+    {
+      "id": 5, "type": "stat", "title": "Sessions (24h, all profiles)",
+      "gridPos": { "h": 4, "w": 4, "x": 16, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "sum(increase(hermes_sessions_total[1d]))", "legendFormat": "sessions" }],
+      "fieldConfig": { "defaults": { "unit": "sessions" }, "overrides": [] }
+    },
+    {
+      "id": 6, "type": "stat", "title": "Gateways up",
+      "gridPos": { "h": 4, "w": 4, "x": 20, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "count(hermes_gateway_up == 1)", "legendFormat": "up" }],
+      "fieldConfig": { "defaults": { "unit": "units" }, "overrides": [] }
+    },
+    {
+      "id": 7, "type": "table", "title": "Spend per profile (real, from state.db)",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 4 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "sum by (profile) (hermes_session_cost_total)", "legendFormat": "{{profile}}", "instant": true, "format": "table" }],
+      "transformations": [{ "id": "sortBy", "options": { "fields": {}, "sort": [{ "field": "Value", "desc": true }] } }, { "id": "organize", "options": { "excludeByName": { "Time": true }, "indexByName": {}, "renameByName": { "profile": "Profile", "Value": "Spend (USD)" } } }],
+      "fieldConfig": { "defaults": { "unit": "currencyusd" }, "overrides": [] }
+    },
+    {
+      "id": 8, "type": "bargauge", "title": "Sessions per model (all profiles)",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 4 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "topk(10, sum by (model) (hermes_sessions_by_model_total))", "legendFormat": "{{model}}" }],
+      "fieldConfig": { "defaults": { "unit": "sessions" }, "overrides": [] }
+    },
+    {
+      "id": 9, "type": "timeseries", "title": "Spend per model / day (stacked)",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 12 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "sum by (model) (increase(hermes_session_cost_total[1d]))", "legendFormat": "{{model}}" }],
+      "fieldConfig": { "defaults": { "unit": "currencyusd", "custom": { "stacking": { "mode": "normal" }, "fillOpacity": 30 } }, "overrides": [] },
+      "options": { "legend": { "displayMode": "list", "placement": "bottom" } }
+    },
+    {
+      "id": 10, "type": "bargauge", "title": "Sessions by source/channel (gateway proof)",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 12 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "sum by (source) (hermes_sessions_by_source_total)", "legendFormat": "{{source}}" }],
+      "fieldConfig": { "defaults": { "unit": "sessions" }, "overrides": [] }
+    },
+    {
+      "id": 11, "type": "table", "title": "Sessions by source per profile (gateway proof per agent)",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 20 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "sum by (profile, source) (hermes_sessions_by_source_total)", "legendFormat": "{{profile}}/{{source}}", "instant": true, "format": "table" }],
+      "transformations": [{ "id": "sortBy", "options": { "fields": {}, "sort": [{ "field": "Value", "desc": true }] } }, { "id": "organize", "options": { "excludeByName": { "Time": true }, "indexByName": {}, "renameByName": { "profile": "Profile", "source": "Source", "Value": "Sessions" } } }],
+      "fieldConfig": { "defaults": {}, "overrides": [] }
+    },
+    {
+      "id": 12, "type": "timeseries", "title": "Gateway units (1 = active)",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 20 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [
+        { "expr": "hermes_gateway_up{unit=\"hermes-gateway\"}", "legendFormat": "Orchestrator" },
+        { "expr": "hermes_gateway_up{unit=\"hermes-gateway-guru\"}", "legendFormat": "guru" },
+        { "expr": "hermes_gateway_up{unit=\"hermes-gateway-sniper\"}", "legendFormat": "sniper" },
+        { "expr": "hermes_gateway_up{unit=\"hermes-gateway-builder\"}", "legendFormat": "builder" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "bool" }, "overrides": [] }
+    },
+    {
+      "id": 13, "type": "timeseries", "title": "Sessions per profile / day",
+      "gridPos": { "h": 6, "w": 12, "x": 0, "y": 28 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "sum by (profile) (increase(hermes_sessions_total[1d]))", "legendFormat": "{{profile}}" }],
+      "fieldConfig": { "defaults": { "unit": "sessions" }, "overrides": [] }
+    },
+    {
+      "id": 14, "type": "timeseries", "title": "Tokens by kind / day (incl. cache)",
+      "gridPos": { "h": 6, "w": 12, "x": 12, "y": 28 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [{ "expr": "sum by (kind) (increase(hermes_session_tokens_total[1d]))", "legendFormat": "{{kind}}" }],
+      "fieldConfig": { "defaults": { "unit": "short", "custom": { "stacking": { "mode": "normal" }, "fillOpacity": 30 } }, "overrides": [] }
+    },
+    {
+      "id": 15, "type": "timeseries", "title": "Log lines by source (5m)",
+      "gridPos": { "h": 6, "w": 12, "x": 0, "y": 34 },
+      "datasource": { "type": "loki", "uid": "lokiuid" },
+      "targets": [{ "expr": "sum by (source) (count_over_time({job=\"hermes\"}[5m]))", "legendFormat": "{{source}}" }],
+      "fieldConfig": { "defaults": { "unit": "loglines" }, "overrides": [] }
+    },
+    {
+      "id": 16, "type": "timeseries", "title": "Error lines by source (5m)",
+      "gridPos": { "h": 6, "w": 12, "x": 12, "y": 34 },
+      "datasource": { "type": "loki", "uid": "lokiuid" },
+      "targets": [{ "expr": "sum by (source) (count_over_time({job=\"hermes\"} |~ \"(?i)error\" [5m]))", "legendFormat": "{{source}}" }],
+      "fieldConfig": { "defaults": { "unit": "loglines" }, "overrides": [] }
+    },
+    {
+      "id": 17, "type": "timeseries", "title": "Exporter health — poll age & errors",
+      "gridPos": { "h": 6, "w": 24, "x": 0, "y": 40 },
+      "datasource": { "type": "prometheus", "uid": "prometheusuid" },
+      "targets": [
+        { "expr": "time() - hermes_cost_last_success_timestamp_seconds", "legendFormat": "cost poll age (s)" },
+        { "expr": "time() - hermes_flow_last_success_timestamp_seconds", "legendFormat": "flow poll age (s)" },
+        { "expr": "hermes_cost_exporter_errors_total", "legendFormat": "cost errors" },
+        { "expr": "hermes_flow_exporter_errors_total", "legendFormat": "flow errors" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "s" }, "overrides": [] }
+    }
+  ]
+}

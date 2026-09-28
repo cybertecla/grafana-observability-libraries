@@ -1,0 +1,5 @@
+apiVersion: 1
+# Dashboards are now DB-managed (UI edits save instantly, no config-file flow).
+# Repo JSONs under grafana/provisioning/dashboards/ + grafana/exported/ are
+# offline templates/snapshots, imported via scripts/grafana-import.sh.
+providers: []
