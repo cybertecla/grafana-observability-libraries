@@ -29,451 +29,437 @@
         "x": 0,
         "y": 0
       },
-      "id": 33,
-      "panels": [],
-      "title": "Overall",
+      "id": 39,
+      "title": "General",
       "type": "row"
     },
     {
-      "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheusuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 60
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "options": {
+        "barShape": "flat",
+        "barWidthFactor": 0.54,
+        "effects": {
+          "barGlow": false,
+          "centerGlow": false,
+          "gradient": false
+        },
+        "endpointMarker": "point",
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "segmentCount": 56,
+        "segmentSpacing": 0.3,
+        "shape": "circle",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto",
+        "sparkline": true,
+        "textMode": "auto"
+      },
+      "pluginVersion": "13.2.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "sum by (profile) (hermes_sessions_total)",
+          "legendFormat": "{{profile}}",
+          "refId": "A"
+        }
+      ],
+      "type": "gauge",
+      "id": 1,
       "gridPos": {
-        "h": 1,
+        "h": 5,
         "w": 24,
         "x": 0,
         "y": 1
       },
-      "id": 34,
-      "panels": [
+      "title": "Sessions per profile"
+    },
+    {
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "13.2.1",
+      "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "prometheusuid"
           },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "percentage",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "#EAB839",
-                    "value": 60
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "none"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 5,
-            "w": 24,
-            "x": 0,
-            "y": 2
-          },
-          "options": {
-            "barShape": "flat",
-            "barWidthFactor": 0.54,
-            "effects": {
-              "barGlow": false,
-              "centerGlow": false,
-              "gradient": false
-            },
-            "endpointMarker": "point",
-            "minVizHeight": 75,
-            "minVizWidth": 75,
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "segmentCount": 56,
-            "segmentSpacing": 0.3,
-            "shape": "circle",
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true,
-            "sizing": "auto",
-            "sparkline": true,
-            "textMode": "auto"
-          },
-          "pluginVersion": "13.2.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "prometheusuid"
-              },
-              "expr": "sum by (profile) (hermes_sessions_total)",
-              "legendFormat": "{{profile}}",
-              "refId": "A"
-            }
-          ],
-          "title": "Sessions per profile",
-          "type": "gauge",
-          "id": 1
-        },
-        {
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "showValues": false,
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "none"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 6,
-            "w": 24,
-            "x": 0,
-            "y": 7
-          },
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "13.2.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "prometheusuid"
-              },
-              "expr": "sum by (profile) (increase(hermes_sessions_total[1d]))",
-              "legendFormat": "{{profile}}",
-              "refId": "A"
-            }
-          ],
-          "title": "Sessions per profile / day",
-          "type": "timeseries",
-          "id": 19
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheusuid"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic-by-name"
-              },
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "none"
-            }
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 21,
-            "x": 0,
-            "y": 13
-          },
-          "id": 17,
-          "options": {
-            "displayMode": "lcd",
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": false
-            },
-            "maxVizHeight": 300,
-            "minVizHeight": 16,
-            "minVizWidth": 8,
-            "namePlacement": "auto",
-            "orientation": "horizontal",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showUnfilled": true,
-            "sizing": "auto",
-            "valueMode": "text"
-          },
-          "pluginVersion": "13.2.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "prometheusuid"
-              },
-              "expr": "topk(10, sum by (model) (hermes_sessions_by_model_total))",
-              "legendFormat": "{{model}}",
-              "refId": "A"
-            }
-          ],
-          "title": "Sessions per model (all profiles)",
-          "type": "bargauge"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheusuid"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "fixedColor": "blue",
-                "mode": "palette-classic-by-name"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 3,
-            "x": 21,
-            "y": 13
-          },
-          "options": {
-            "barShape": "rounded",
-            "barWidthFactor": 0.25,
-            "effects": {
-              "barGlow": true,
-              "centerGlow": true,
-              "gradient": true
-            },
-            "endpointMarker": "glow",
-            "minVizHeight": 75,
-            "minVizWidth": 75,
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "segmentCount": 10,
-            "segmentSpacing": 0.15,
-            "shape": "circle",
-            "showThresholdLabels": false,
-            "showThresholdMarkers": false,
-            "sizing": "auto",
-            "sparkline": true,
-            "textMode": "auto"
-          },
-          "pluginVersion": "13.2.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "prometheusuid"
-              },
-              "expr": "sum(increase(hermes_sessions_total[1d]))",
-              "legendFormat": "sessions",
-              "refId": "A"
-            }
-          ],
-          "title": "Last 24h Sessions",
-          "type": "gauge",
-          "id": 20
-        },
-        {
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "align": "center",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "filterable": true,
-                "footer": {
-                  "reducers": []
-                },
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 24,
-            "x": 0,
-            "y": 20
-          },
-          "options": {
-            "cellHeight": "sm",
-            "showHeader": true,
-            "sortBy": []
-          },
-          "pluginVersion": "13.2.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "prometheusuid"
-              },
-              "expr": "sum by (skill, scope) (hermes_skill_uses_total)",
-              "format": "table",
-              "instant": true,
-              "legendFormat": "{{scope}}/{{skill}}",
-              "refId": "A"
-            }
-          ],
-          "title": "Top Per-profile skill usage",
-          "transformations": [
-            {
-              "id": "sortBy",
-              "options": {
-                "fields": {},
-                "sort": [
-                  {
-                    "desc": true,
-                    "field": "Value"
-                  }
-                ]
-              }
-            },
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "Time": true
-                },
-                "indexByName": {},
-                "renameByName": {
-                  "Value": "Uses",
-                  "scope": "Scope",
-                  "skill": "Skill"
-                }
-              }
-            }
-          ],
-          "type": "table",
-          "id": 4
+          "expr": "sum by (profile) (increase(hermes_sessions_total[1d]))",
+          "legendFormat": "{{profile}}",
+          "refId": "A"
         }
       ],
-      "title": "Sessions",
-      "type": "row"
-    },
-    {
-      "collapsed": false,
+      "type": "timeseries",
+      "id": 19,
       "gridPos": {
-        "h": 1,
+        "h": 6,
         "w": 24,
         "x": 0,
-        "y": 2
+        "y": 6
       },
-      "id": 35,
-      "title": "Tokens",
-      "type": "row"
+      "title": "Sessions per profile / day",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheusuid"
+      }
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheusuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic-by-name"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 21,
+        "x": 0,
+        "y": 12
+      },
+      "id": 17,
+      "options": {
+        "displayMode": "lcd",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "text"
+      },
+      "pluginVersion": "13.2.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "topk(10, sum by (model) (hermes_sessions_by_model_total))",
+          "legendFormat": "{{model}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Sessions per model (all profiles)",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheusuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "blue",
+            "mode": "palette-classic-by-name"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "barShape": "rounded",
+        "barWidthFactor": 0.25,
+        "effects": {
+          "barGlow": true,
+          "centerGlow": true,
+          "gradient": true
+        },
+        "endpointMarker": "glow",
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "segmentCount": 10,
+        "segmentSpacing": 0.15,
+        "shape": "circle",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": false,
+        "sizing": "auto",
+        "sparkline": true,
+        "textMode": "auto"
+      },
+      "pluginVersion": "13.2.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "sum(increase(hermes_sessions_total[1d]))",
+          "legendFormat": "sessions",
+          "refId": "A"
+        }
+      ],
+      "type": "gauge",
+      "id": 20,
+      "gridPos": {
+        "h": 7,
+        "w": 3,
+        "x": 21,
+        "y": 12
+      },
+      "title": "Last 24h Sessions"
+    },
+    {
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "13.2.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "sum by (skill, scope) (hermes_skill_uses_total)",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "{{scope}}/{{skill}}",
+          "refId": "A"
+        }
+      ],
+      "transformations": [
+        {
+          "id": "sortBy",
+          "options": {
+            "fields": {},
+            "sort": [
+              {
+                "desc": true,
+                "field": "Value"
+              }
+            ]
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "Value": "Uses",
+              "scope": "Scope",
+              "skill": "Skill"
+            }
+          }
+        }
+      ],
+      "type": "table",
+      "id": 4,
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "title": "Top Per-profile skill usage",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheusuid"
+      }
+    },
+    {
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -504,12 +490,6 @@
         },
         "overrides": []
       },
-      "gridPos": {
-        "h": 10,
-        "w": 12,
-        "x": 0,
-        "y": 3
-      },
       "options": {
         "cellHeight": "sm",
         "showHeader": true
@@ -528,7 +508,6 @@
           "refId": "A"
         }
       ],
-      "title": "Spend per profile",
       "transformations": [
         {
           "id": "sortBy",
@@ -557,9 +536,21 @@
         }
       ],
       "type": "table",
-      "id": 28
+      "id": 28,
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 27
+      },
+      "title": "Spend per profile",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheusuid"
+      }
     },
     {
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -586,12 +577,6 @@
           "unit": "currencyUSD"
         },
         "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 12,
-        "y": 3
       },
       "options": {
         "barShape": "flat",
@@ -633,11 +618,22 @@
           "refId": "A"
         }
       ],
-      "title": "All-time OpenRouter (USD)",
       "type": "gauge",
-      "id": 29
+      "id": 29,
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 12,
+        "y": 27
+      },
+      "title": "All-time OpenRouter (USD)",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheusuid"
+      }
     },
     {
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -664,12 +660,6 @@
           "unit": "currencyUSD"
         },
         "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 18,
-        "y": 3
       },
       "options": {
         "barShape": "flat",
@@ -711,11 +701,22 @@
           "refId": "A"
         }
       ],
-      "title": "Spent this month (USD)",
       "type": "gauge",
-      "id": 32
+      "id": 32,
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 18,
+        "y": 27
+      },
+      "title": "Spent this month (USD)",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheusuid"
+      }
     },
     {
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -742,12 +743,6 @@
           "unit": "currencyUSD"
         },
         "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 12,
-        "y": 8
       },
       "options": {
         "barShape": "flat",
@@ -789,11 +784,22 @@
           "refId": "A"
         }
       ],
-      "title": "Spent today (USD)",
       "type": "gauge",
-      "id": 30
+      "id": 30,
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 12,
+        "y": 32
+      },
+      "title": "Spent today (USD)",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheusuid"
+      }
     },
     {
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -820,12 +826,6 @@
           "unit": "currencyUSD"
         },
         "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 18,
-        "y": 8
       },
       "options": {
         "barShape": "flat",
@@ -867,15 +867,26 @@
           "refId": "A"
         }
       ],
-      "title": "Spent this week (USD)",
       "type": "gauge",
-      "id": 31
+      "id": 31,
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 18,
+        "y": 32
+      },
+      "title": "Spent this week (USD)",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheusuid"
+      }
     },
     {
       "datasource": {
         "type": "prometheus",
         "uid": "prometheusuid"
       },
+      "description": "Estimated spend per model per day (increase over 1d). Standalone \u2014 works on any dashboard.",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -922,21 +933,22 @@
           "refId": "A"
         }
       ],
-      "title": "Cost per model / day",
       "type": "timeseries",
       "id": 18,
       "gridPos": {
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 13
-      }
+        "y": 37
+      },
+      "title": "Cost per model / day"
     },
     {
       "datasource": {
         "type": "prometheus",
         "uid": "prometheusuid"
       },
+      "description": "Stacked bars, declared kind-major: ONE orange block (cache reads, shade per job), then input (blue), output (purple), reasoning (yellow). Cumulative totals since telemetry start.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -997,15 +1009,14 @@
           {
             "matcher": {
               "id": "byFrameRefID",
-              "options": "A"
+              "options": "ca0"
             },
-            "id": "custom",
             "properties": [
               {
                 "id": "color",
                 "value": {
-                  "mode": "fixed",
-                  "fixedColor": "#ee8738"
+                  "fixedColor": "#ee8738",
+                  "mode": "fixed"
                 }
               }
             ]
@@ -1013,15 +1024,14 @@
           {
             "matcher": {
               "id": "byFrameRefID",
-              "options": "B"
+              "options": "ca1"
             },
-            "id": "custom",
             "properties": [
               {
                 "id": "color",
                 "value": {
-                  "mode": "fixed",
-                  "fixedColor": "#3893ee"
+                  "fixedColor": "#ee9038",
+                  "mode": "fixed"
                 }
               }
             ]
@@ -1029,15 +1039,14 @@
           {
             "matcher": {
               "id": "byFrameRefID",
-              "options": "C"
+              "options": "ca2"
             },
-            "id": "custom",
             "properties": [
               {
                 "id": "color",
                 "value": {
-                  "mode": "fixed",
-                  "fixedColor": "#8d38ee"
+                  "fixedColor": "#ee9938",
+                  "mode": "fixed"
                 }
               }
             ]
@@ -1045,26 +1054,379 @@
           {
             "matcher": {
               "id": "byFrameRefID",
-              "options": "D"
+              "options": "ca3"
             },
-            "id": "custom",
             "properties": [
               {
                 "id": "color",
                 "value": {
-                  "mode": "fixed",
-                  "fixedColor": "#eeca38"
+                  "fixedColor": "#eea338",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "ca4"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#eeac38",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "ca5"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#eeb538",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "ca6"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#eebe38",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "in0"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#3893ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "in1"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#388aee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "in2"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#3881ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "in3"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#3878ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "in4"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#386fee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "in5"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#3866ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "in6"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#385dee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "ou0"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#8d38ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "ou1"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#9638ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "ou2"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#a038ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "ou3"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#a938ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "ou4"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#b238ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "ou5"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#bb38ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "ou6"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#c438ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "re0"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#eeca38",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "re1"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#eed338",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "re2"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#eedc38",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "re3"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#eee538",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "re4"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#eeee38",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "re5"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#e5ee38",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "re6"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#dcee38",
+                  "mode": "fixed"
                 }
               }
             ]
           }
         ]
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 24,
-        "x": 0,
-        "y": 19
       },
       "options": {
         "legend": {
@@ -1082,51 +1444,310 @@
       "pluginVersion": "13.2.1",
       "targets": [
         {
-          "refId": "A",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheusuid"
           },
-          "expr": "sum by (exported_job) (hermes_cron_session_tokens_total{profile=~\".*\", kind=\"cache_read\"})",
-          "legendFormat": "cache read \u00b7 {{exported_job}}"
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"wallet-discovery\", kind=\"cache_read\"}",
+          "legendFormat": "cache read \u00b7 wallet-discovery",
+          "refId": "ca0"
         },
         {
-          "refId": "B",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheusuid"
           },
-          "expr": "sum by (exported_job) (hermes_cron_session_tokens_total{profile=~\".*\", kind=\"input\"})",
-          "legendFormat": "input \u00b7 {{exported_job}}"
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"whale-probe\", kind=\"cache_read\"}",
+          "legendFormat": "cache read \u00b7 whale-probe",
+          "refId": "ca1"
         },
         {
-          "refId": "C",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheusuid"
           },
-          "expr": "sum by (exported_job) (hermes_cron_session_tokens_total{profile=~\".*\", kind=\"output\"})",
-          "legendFormat": "output \u00b7 {{exported_job}}"
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"Topic news digest\", kind=\"cache_read\"}",
+          "legendFormat": "cache read \u00b7 Topic news digest",
+          "refId": "ca2"
         },
         {
-          "refId": "D",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheusuid"
           },
-          "expr": "sum by (exported_job) (hermes_cron_session_tokens_total{profile=~\".*\", kind=\"reasoning\"})",
-          "legendFormat": "reasoning \u00b7 {{exported_job}}"
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"Daily learning drip\", kind=\"cache_read\"}",
+          "legendFormat": "cache read \u00b7 Daily learning drip",
+          "refId": "ca3"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"paper-trade\", kind=\"cache_read\"}",
+          "legendFormat": "cache read \u00b7 paper-trade",
+          "refId": "ca4"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"paper-100\", kind=\"cache_read\"}",
+          "legendFormat": "cache read \u00b7 paper-100",
+          "refId": "ca5"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"model-test\", kind=\"cache_read\"}",
+          "legendFormat": "cache read \u00b7 model-test",
+          "refId": "ca6"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"wallet-discovery\", kind=\"input\"}",
+          "legendFormat": "input \u00b7 wallet-discovery",
+          "refId": "in0"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"whale-probe\", kind=\"input\"}",
+          "legendFormat": "input \u00b7 whale-probe",
+          "refId": "in1"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"Topic news digest\", kind=\"input\"}",
+          "legendFormat": "input \u00b7 Topic news digest",
+          "refId": "in2"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"Daily learning drip\", kind=\"input\"}",
+          "legendFormat": "input \u00b7 Daily learning drip",
+          "refId": "in3"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"paper-trade\", kind=\"input\"}",
+          "legendFormat": "input \u00b7 paper-trade",
+          "refId": "in4"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"paper-100\", kind=\"input\"}",
+          "legendFormat": "input \u00b7 paper-100",
+          "refId": "in5"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"model-test\", kind=\"input\"}",
+          "legendFormat": "input \u00b7 model-test",
+          "refId": "in6"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"wallet-discovery\", kind=\"output\"}",
+          "legendFormat": "output \u00b7 wallet-discovery",
+          "refId": "ou0"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"whale-probe\", kind=\"output\"}",
+          "legendFormat": "output \u00b7 whale-probe",
+          "refId": "ou1"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"Topic news digest\", kind=\"output\"}",
+          "legendFormat": "output \u00b7 Topic news digest",
+          "refId": "ou2"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"Daily learning drip\", kind=\"output\"}",
+          "legendFormat": "output \u00b7 Daily learning drip",
+          "refId": "ou3"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"paper-trade\", kind=\"output\"}",
+          "legendFormat": "output \u00b7 paper-trade",
+          "refId": "ou4"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"paper-100\", kind=\"output\"}",
+          "legendFormat": "output \u00b7 paper-100",
+          "refId": "ou5"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"model-test\", kind=\"output\"}",
+          "legendFormat": "output \u00b7 model-test",
+          "refId": "ou6"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"wallet-discovery\", kind=\"reasoning\"}",
+          "legendFormat": "reasoning \u00b7 wallet-discovery",
+          "refId": "re0"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"whale-probe\", kind=\"reasoning\"}",
+          "legendFormat": "reasoning \u00b7 whale-probe",
+          "refId": "re1"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"Topic news digest\", kind=\"reasoning\"}",
+          "legendFormat": "reasoning \u00b7 Topic news digest",
+          "refId": "re2"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"Daily learning drip\", kind=\"reasoning\"}",
+          "legendFormat": "reasoning \u00b7 Daily learning drip",
+          "refId": "re3"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"paper-trade\", kind=\"reasoning\"}",
+          "legendFormat": "reasoning \u00b7 paper-trade",
+          "refId": "re4"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"paper-100\", kind=\"reasoning\"}",
+          "legendFormat": "reasoning \u00b7 paper-100",
+          "refId": "re5"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cron_session_tokens_total{profile=~\".*\", exported_job=\"model-test\", kind=\"reasoning\"}",
+          "legendFormat": "reasoning \u00b7 model-test",
+          "refId": "re6"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "sum by (exported_job) (hermes_cron_session_tokens_total{profile=~\".*\", kind=\"cache_read\", exported_job!~\"Daily learning drip|Topic news digest|model-test|paper-100|paper-trade|wallet-discovery|whale-probe\"})",
+          "legendFormat": "cache read \u00b7 {{exported_job}}",
+          "refId": "zz0"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "sum by (exported_job) (hermes_cron_session_tokens_total{profile=~\".*\", kind=\"input\", exported_job!~\"Daily learning drip|Topic news digest|model-test|paper-100|paper-trade|wallet-discovery|whale-probe\"})",
+          "legendFormat": "input \u00b7 {{exported_job}}",
+          "refId": "zz1"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "sum by (exported_job) (hermes_cron_session_tokens_total{profile=~\".*\", kind=\"output\", exported_job!~\"Daily learning drip|Topic news digest|model-test|paper-100|paper-trade|wallet-discovery|whale-probe\"})",
+          "legendFormat": "output \u00b7 {{exported_job}}",
+          "refId": "zz2"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "sum by (exported_job) (hermes_cron_session_tokens_total{profile=~\".*\", kind=\"reasoning\", exported_job!~\"Daily learning drip|Topic news digest|model-test|paper-100|paper-trade|wallet-discovery|whale-probe\"})",
+          "legendFormat": "reasoning \u00b7 {{exported_job}}",
+          "refId": "zz3"
         }
       ],
-      "title": "Cron job tokens \u2014 per job",
       "type": "timeseries",
-      "id": 21
+      "id": 21,
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 43
+      },
+      "title": "Cron job tokens \u2014 per job"
     },
     {
       "datasource": {
         "type": "prometheus",
         "uid": "prometheusuid"
       },
+      "description": "Daily tokens by kind & model (increase 1d). Kind-major declared order: orange block (cache read, shade per model), green (cache write), blue (input), purple (output), yellow (reasoning). Each series has a unique refId.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1187,15 +1808,14 @@
           {
             "matcher": {
               "id": "byFrameRefID",
-              "options": "A"
+              "options": "crd0"
             },
-            "id": "custom",
             "properties": [
               {
                 "id": "color",
                 "value": {
-                  "mode": "fixed",
-                  "fixedColor": "#ee8738"
+                  "fixedColor": "#ee8738",
+                  "mode": "fixed"
                 }
               }
             ]
@@ -1203,15 +1823,14 @@
           {
             "matcher": {
               "id": "byFrameRefID",
-              "options": "B"
+              "options": "crd1"
             },
-            "id": "custom",
             "properties": [
               {
                 "id": "color",
                 "value": {
-                  "mode": "fixed",
-                  "fixedColor": "#38ee93"
+                  "fixedColor": "#ee8d38",
+                  "mode": "fixed"
                 }
               }
             ]
@@ -1219,15 +1838,14 @@
           {
             "matcher": {
               "id": "byFrameRefID",
-              "options": "C"
+              "options": "crd2"
             },
-            "id": "custom",
             "properties": [
               {
                 "id": "color",
                 "value": {
-                  "mode": "fixed",
-                  "fixedColor": "#3893ee"
+                  "fixedColor": "#ee9338",
+                  "mode": "fixed"
                 }
               }
             ]
@@ -1235,15 +1853,14 @@
           {
             "matcher": {
               "id": "byFrameRefID",
-              "options": "D"
+              "options": "crd3"
             },
-            "id": "custom",
             "properties": [
               {
                 "id": "color",
                 "value": {
-                  "mode": "fixed",
-                  "fixedColor": "#8d38ee"
+                  "fixedColor": "#ee9938",
+                  "mode": "fixed"
                 }
               }
             ]
@@ -1251,26 +1868,694 @@
           {
             "matcher": {
               "id": "byFrameRefID",
-              "options": "E"
+              "options": "crd4"
             },
-            "id": "custom",
             "properties": [
               {
                 "id": "color",
                 "value": {
-                  "mode": "fixed",
-                  "fixedColor": "#eeca38"
+                  "fixedColor": "#eea038",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "crd5"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#eea638",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "crd6"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#eeac38",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "crd7"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#eeb238",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "crd8"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#eeb838",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "crd9"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#eebe38",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "cwr0"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#38ee93",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "cwr1"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#38ee99",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "cwr2"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#38eea0",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "cwr3"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#38eea6",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "cwr4"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#38eeac",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "cwr5"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#38eeb2",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "cwr6"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#38eeb8",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "cwr7"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#38eebe",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "cwr8"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#38eec4",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "cwr9"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#38eeca",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "inp0"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#3893ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "inp1"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#388dee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "inp2"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#3887ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "inp3"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#3881ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "inp4"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#387bee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "inp5"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#3875ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "inp6"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#386fee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "inp7"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#3869ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "inp8"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#3863ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "inp9"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#385dee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "out0"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#8d38ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "out1"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#9338ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "out2"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#9938ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "out3"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#a038ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "out4"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#a638ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "out5"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#ac38ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "out6"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#b238ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "out7"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#b838ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "out8"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#be38ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "out9"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#c438ee",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "rsn0"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#eeca38",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "rsn1"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#eed038",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "rsn2"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#eed638",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "rsn3"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#eedc38",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "rsn4"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#eee238",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "rsn5"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#eee838",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "rsn6"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#eeee38",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "rsn7"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#e8ee38",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "rsn8"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#e2ee38",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "rsn9"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#dcee38",
+                  "mode": "fixed"
                 }
               }
             ]
           }
         ]
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 24,
-        "x": 0,
-        "y": 25
       },
       "options": {
         "legend": {
@@ -1288,575 +2573,674 @@
       "pluginVersion": "13.2.1",
       "targets": [
         {
-          "refId": "A",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheusuid"
           },
-          "expr": "sum by (model) (increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_read\"}[1d]))",
-          "legendFormat": "cache read \u00b7 {{model}}"
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_read\", model=\"MiniMax-M3\"}[1d])",
+          "legendFormat": "cache read \u00b7 MiniMax-M3",
+          "refId": "crd0"
         },
         {
-          "refId": "B",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheusuid"
           },
-          "expr": "sum by (model) (increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_write\"}[1d]))",
-          "legendFormat": "cache write \u00b7 {{model}}"
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_read\", model=\"deepseek-v4-flash-free\"}[1d])",
+          "legendFormat": "cache read \u00b7 deepseek-v4-flash-free",
+          "refId": "crd1"
         },
         {
-          "refId": "C",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheusuid"
           },
-          "expr": "sum by (model) (increase(hermes_session_tokens_total{profile=~\".*\", kind=\"input\"}[1d]))",
-          "legendFormat": "input \u00b7 {{model}}"
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_read\", model=\"deepseek/deepseek-v4-flash-0731\"}[1d])",
+          "legendFormat": "cache read \u00b7 deepseek/deepseek-v4-flash-0731",
+          "refId": "crd2"
         },
         {
-          "refId": "D",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheusuid"
           },
-          "expr": "sum by (model) (increase(hermes_session_tokens_total{profile=~\".*\", kind=\"output\"}[1d]))",
-          "legendFormat": "output \u00b7 {{model}}"
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_read\", model=\"deepseek/deepseek-v4.1-flash\"}[1d])",
+          "legendFormat": "cache read \u00b7 deepseek/deepseek-v4.1-flash",
+          "refId": "crd3"
         },
         {
-          "refId": "E",
           "datasource": {
             "type": "prometheus",
             "uid": "prometheusuid"
           },
-          "expr": "sum by (model) (increase(hermes_session_tokens_total{profile=~\".*\", kind=\"reasoning\"}[1d]))",
-          "legendFormat": "reasoning \u00b7 {{model}}"
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_read\", model=\"hy3-free\"}[1d])",
+          "legendFormat": "cache read \u00b7 hy3-free",
+          "refId": "crd4"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_read\", model=\"laguna-s-2.1-free\"}[1d])",
+          "legendFormat": "cache read \u00b7 laguna-s-2.1-free",
+          "refId": "crd5"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_read\", model=\"muse-spark-1.2-contributor-free\"}[1d])",
+          "legendFormat": "cache read \u00b7 muse-spark-1.2-contributor-free",
+          "refId": "crd6"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_read\", model=\"muse-spark-1.3-contributor-free\"}[1d])",
+          "legendFormat": "cache read \u00b7 muse-spark-1.3-contributor-free",
+          "refId": "crd7"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_read\", model=\"stealth/union-alpha\"}[1d])",
+          "legendFormat": "cache read \u00b7 stealth/union-alpha",
+          "refId": "crd8"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_read\", model=\"z-ai/glm-5.3-flash\"}[1d])",
+          "legendFormat": "cache read \u00b7 z-ai/glm-5.3-flash",
+          "refId": "crd9"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_write\", model=\"MiniMax-M3\"}[1d])",
+          "legendFormat": "cache write \u00b7 MiniMax-M3",
+          "refId": "cwr0"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_write\", model=\"deepseek-v4-flash-free\"}[1d])",
+          "legendFormat": "cache write \u00b7 deepseek-v4-flash-free",
+          "refId": "cwr1"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_write\", model=\"deepseek/deepseek-v4-flash-0731\"}[1d])",
+          "legendFormat": "cache write \u00b7 deepseek/deepseek-v4-flash-0731",
+          "refId": "cwr2"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_write\", model=\"deepseek/deepseek-v4.1-flash\"}[1d])",
+          "legendFormat": "cache write \u00b7 deepseek/deepseek-v4.1-flash",
+          "refId": "cwr3"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_write\", model=\"hy3-free\"}[1d])",
+          "legendFormat": "cache write \u00b7 hy3-free",
+          "refId": "cwr4"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_write\", model=\"laguna-s-2.1-free\"}[1d])",
+          "legendFormat": "cache write \u00b7 laguna-s-2.1-free",
+          "refId": "cwr5"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_write\", model=\"muse-spark-1.2-contributor-free\"}[1d])",
+          "legendFormat": "cache write \u00b7 muse-spark-1.2-contributor-free",
+          "refId": "cwr6"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_write\", model=\"muse-spark-1.3-contributor-free\"}[1d])",
+          "legendFormat": "cache write \u00b7 muse-spark-1.3-contributor-free",
+          "refId": "cwr7"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_write\", model=\"stealth/union-alpha\"}[1d])",
+          "legendFormat": "cache write \u00b7 stealth/union-alpha",
+          "refId": "cwr8"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_write\", model=\"z-ai/glm-5.3-flash\"}[1d])",
+          "legendFormat": "cache write \u00b7 z-ai/glm-5.3-flash",
+          "refId": "cwr9"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"input\", model=\"MiniMax-M3\"}[1d])",
+          "legendFormat": "input \u00b7 MiniMax-M3",
+          "refId": "inp0"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"input\", model=\"deepseek-v4-flash-free\"}[1d])",
+          "legendFormat": "input \u00b7 deepseek-v4-flash-free",
+          "refId": "inp1"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"input\", model=\"deepseek/deepseek-v4-flash-0731\"}[1d])",
+          "legendFormat": "input \u00b7 deepseek/deepseek-v4-flash-0731",
+          "refId": "inp2"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"input\", model=\"deepseek/deepseek-v4.1-flash\"}[1d])",
+          "legendFormat": "input \u00b7 deepseek/deepseek-v4.1-flash",
+          "refId": "inp3"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"input\", model=\"hy3-free\"}[1d])",
+          "legendFormat": "input \u00b7 hy3-free",
+          "refId": "inp4"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"input\", model=\"laguna-s-2.1-free\"}[1d])",
+          "legendFormat": "input \u00b7 laguna-s-2.1-free",
+          "refId": "inp5"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"input\", model=\"muse-spark-1.2-contributor-free\"}[1d])",
+          "legendFormat": "input \u00b7 muse-spark-1.2-contributor-free",
+          "refId": "inp6"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"input\", model=\"muse-spark-1.3-contributor-free\"}[1d])",
+          "legendFormat": "input \u00b7 muse-spark-1.3-contributor-free",
+          "refId": "inp7"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"input\", model=\"stealth/union-alpha\"}[1d])",
+          "legendFormat": "input \u00b7 stealth/union-alpha",
+          "refId": "inp8"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"input\", model=\"z-ai/glm-5.3-flash\"}[1d])",
+          "legendFormat": "input \u00b7 z-ai/glm-5.3-flash",
+          "refId": "inp9"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"output\", model=\"MiniMax-M3\"}[1d])",
+          "legendFormat": "output \u00b7 MiniMax-M3",
+          "refId": "out0"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"output\", model=\"deepseek-v4-flash-free\"}[1d])",
+          "legendFormat": "output \u00b7 deepseek-v4-flash-free",
+          "refId": "out1"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"output\", model=\"deepseek/deepseek-v4-flash-0731\"}[1d])",
+          "legendFormat": "output \u00b7 deepseek/deepseek-v4-flash-0731",
+          "refId": "out2"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"output\", model=\"deepseek/deepseek-v4.1-flash\"}[1d])",
+          "legendFormat": "output \u00b7 deepseek/deepseek-v4.1-flash",
+          "refId": "out3"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"output\", model=\"hy3-free\"}[1d])",
+          "legendFormat": "output \u00b7 hy3-free",
+          "refId": "out4"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"output\", model=\"laguna-s-2.1-free\"}[1d])",
+          "legendFormat": "output \u00b7 laguna-s-2.1-free",
+          "refId": "out5"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"output\", model=\"muse-spark-1.2-contributor-free\"}[1d])",
+          "legendFormat": "output \u00b7 muse-spark-1.2-contributor-free",
+          "refId": "out6"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"output\", model=\"muse-spark-1.3-contributor-free\"}[1d])",
+          "legendFormat": "output \u00b7 muse-spark-1.3-contributor-free",
+          "refId": "out7"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"output\", model=\"stealth/union-alpha\"}[1d])",
+          "legendFormat": "output \u00b7 stealth/union-alpha",
+          "refId": "out8"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"output\", model=\"z-ai/glm-5.3-flash\"}[1d])",
+          "legendFormat": "output \u00b7 z-ai/glm-5.3-flash",
+          "refId": "out9"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"reasoning\", model=\"MiniMax-M3\"}[1d])",
+          "legendFormat": "reasoning \u00b7 MiniMax-M3",
+          "refId": "rsn0"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"reasoning\", model=\"deepseek-v4-flash-free\"}[1d])",
+          "legendFormat": "reasoning \u00b7 deepseek-v4-flash-free",
+          "refId": "rsn1"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"reasoning\", model=\"deepseek/deepseek-v4-flash-0731\"}[1d])",
+          "legendFormat": "reasoning \u00b7 deepseek/deepseek-v4-flash-0731",
+          "refId": "rsn2"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"reasoning\", model=\"deepseek/deepseek-v4.1-flash\"}[1d])",
+          "legendFormat": "reasoning \u00b7 deepseek/deepseek-v4.1-flash",
+          "refId": "rsn3"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"reasoning\", model=\"hy3-free\"}[1d])",
+          "legendFormat": "reasoning \u00b7 hy3-free",
+          "refId": "rsn4"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"reasoning\", model=\"laguna-s-2.1-free\"}[1d])",
+          "legendFormat": "reasoning \u00b7 laguna-s-2.1-free",
+          "refId": "rsn5"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"reasoning\", model=\"muse-spark-1.2-contributor-free\"}[1d])",
+          "legendFormat": "reasoning \u00b7 muse-spark-1.2-contributor-free",
+          "refId": "rsn6"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"reasoning\", model=\"muse-spark-1.3-contributor-free\"}[1d])",
+          "legendFormat": "reasoning \u00b7 muse-spark-1.3-contributor-free",
+          "refId": "rsn7"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"reasoning\", model=\"stealth/union-alpha\"}[1d])",
+          "legendFormat": "reasoning \u00b7 stealth/union-alpha",
+          "refId": "rsn8"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "increase(hermes_session_tokens_total{profile=~\".*\", kind=\"reasoning\", model=\"z-ai/glm-5.3-flash\"}[1d])",
+          "legendFormat": "reasoning \u00b7 z-ai/glm-5.3-flash",
+          "refId": "rsn9"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "sum by (model) (increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_read\", model!~\"MiniMax-M3|deepseek-v4-flash-free|deepseek/deepseek-v4-flash-0731|deepseek/deepseek-v4.1-flash|hy3-free|laguna-s-2.1-free|muse-spark-1.2-contributor-free|muse-spark-1.3-contributor-free|stealth/union-alpha|z-ai/glm-5.3-flash\"}[1d]))",
+          "legendFormat": "cache read \u00b7 {{model}}",
+          "refId": "zz0"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "sum by (model) (increase(hermes_session_tokens_total{profile=~\".*\", kind=\"cache_write\", model!~\"MiniMax-M3|deepseek-v4-flash-free|deepseek/deepseek-v4-flash-0731|deepseek/deepseek-v4.1-flash|hy3-free|laguna-s-2.1-free|muse-spark-1.2-contributor-free|muse-spark-1.3-contributor-free|stealth/union-alpha|z-ai/glm-5.3-flash\"}[1d]))",
+          "legendFormat": "cache write \u00b7 {{model}}",
+          "refId": "zz1"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "sum by (model) (increase(hermes_session_tokens_total{profile=~\".*\", kind=\"input\", model!~\"MiniMax-M3|deepseek-v4-flash-free|deepseek/deepseek-v4-flash-0731|deepseek/deepseek-v4.1-flash|hy3-free|laguna-s-2.1-free|muse-spark-1.2-contributor-free|muse-spark-1.3-contributor-free|stealth/union-alpha|z-ai/glm-5.3-flash\"}[1d]))",
+          "legendFormat": "input \u00b7 {{model}}",
+          "refId": "zz2"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "sum by (model) (increase(hermes_session_tokens_total{profile=~\".*\", kind=\"output\", model!~\"MiniMax-M3|deepseek-v4-flash-free|deepseek/deepseek-v4-flash-0731|deepseek/deepseek-v4.1-flash|hy3-free|laguna-s-2.1-free|muse-spark-1.2-contributor-free|muse-spark-1.3-contributor-free|stealth/union-alpha|z-ai/glm-5.3-flash\"}[1d]))",
+          "legendFormat": "output \u00b7 {{model}}",
+          "refId": "zz3"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "sum by (model) (increase(hermes_session_tokens_total{profile=~\".*\", kind=\"reasoning\", model!~\"MiniMax-M3|deepseek-v4-flash-free|deepseek/deepseek-v4-flash-0731|deepseek/deepseek-v4.1-flash|hy3-free|laguna-s-2.1-free|muse-spark-1.2-contributor-free|muse-spark-1.3-contributor-free|stealth/union-alpha|z-ai/glm-5.3-flash\"}[1d]))",
+          "legendFormat": "reasoning \u00b7 {{model}}",
+          "refId": "zz4"
         }
       ],
-      "title": "Tokens by kind / day (incl. cache)",
       "type": "timeseries",
-      "id": 27
+      "id": 27,
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 49
+      },
+      "title": "Tokens by kind / day (incl. cache)"
     },
     {
-      "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheusuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "decbytes"
+        }
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 13,
+        "x": 0,
+        "y": 55
+      },
+      "id": 38,
+      "options": {
+        "cellHeight": "sm",
+        "frameIndex": 0,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "profile"
+          }
+        ]
+      },
+      "pluginVersion": "13.2.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "sum(hermes_prompt_size_bytes{block=\"system_prompt\",profile=~\"$profile\"}) by (profile)",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "{{profile}}",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "sum(hermes_prompt_size_bytes{block=\"skills_index\",profile=~\"$profile\"}) by (profile)",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "{{profile}}",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "sum(hermes_prompt_size_bytes{block=\"memory\",profile=~\"$profile\"}) by (profile)",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "{{profile}}",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "sum(hermes_prompt_size_bytes{block=\"user_profile\",profile=~\"$profile\"}) by (profile)",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "{{profile}}",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "sum(hermes_prompt_size_bytes{block=\"tool_schemas\",profile=~\"$profile\"}) by (profile)",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "{{profile}}",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "sum(hermes_prompt_tools_total{profile=~\"$profile\"}) by (profile)",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "{{profile}}",
+          "refId": "F"
+        }
+      ],
+      "title": "System prompt budget per profile",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "renameByName": {
+              "Value #A": "System prompt",
+              "Value #B": "Skills index",
+              "Value #C": "Memory",
+              "Value #D": "User profile",
+              "Value #E": "Tool schemas",
+              "Value #F": "Tools"
+            }
+          }
+        },
+        {
+          "id": "sortBy",
+          "options": {
+            "fields": {},
+            "sort": [
+              {
+                "desc": true,
+                "field": "System prompt"
+              }
+            ]
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 31
+        "y": 62
       },
-      "id": 36,
-      "panels": [
-        {
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "showValues": false,
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "m"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 24,
-            "x": 0,
-            "y": 32
-          },
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "13.2.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "prometheusuid"
-              },
-              "expr": "time() - hermes_cost_last_success_timestamp_seconds",
-              "legendFormat": "cost poll age (s)",
-              "refId": "A"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "prometheusuid"
-              },
-              "expr": "time() - hermes_flow_last_success_timestamp_seconds",
-              "legendFormat": "flow poll age (s)",
-              "refId": "B"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "prometheusuid"
-              },
-              "expr": "hermes_cost_exporter_errors_total",
-              "legendFormat": "cost errors",
-              "refId": "C"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "prometheusuid"
-              },
-              "expr": "hermes_flow_exporter_errors_total",
-              "legendFormat": "flow errors",
-              "refId": "D"
-            }
-          ],
-          "title": "Exporter health \u2014 poll age & errors",
-          "type": "timeseries",
-          "id": 24
-        },
-        {
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "showValues": false,
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 24,
-            "x": 0,
-            "y": 39
-          },
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "13.2.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "prometheusuid"
-              },
-              "expr": "sum(increase(hermes_cron_runs_total[1d]))",
-              "legendFormat": "runs",
-              "refId": "A"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "prometheusuid"
-              },
-              "expr": "sum(increase(hermes_cron_failures_total[1d]))",
-              "legendFormat": "failures",
-              "refId": "B"
-            }
-          ],
-          "title": "Cron runs vs failures (24h)",
-          "type": "timeseries",
-          "id": 22
-        },
-        {
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "bars",
-                "fillOpacity": 100,
-                "gradientMode": "hue",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "showValues": false,
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "normal"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "loglines"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 24,
-            "x": 0,
-            "y": 46
-          },
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "13.2.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "loki",
-                "uid": "lokiuid"
-              },
-              "direction": "backward",
-              "editorMode": "code",
-              "expr": "sum by (source) (count_over_time({job=\"hermes\"} |~ \"matrix:!\" [15m]))",
-              "legendFormat": "{{source}}",
-              "queryType": "range",
-              "refId": "A"
-            }
-          ],
-          "title": "Gateway log lines mentioning Matrix rooms (15m)",
-          "type": "timeseries",
-          "id": 25
-        },
-        {
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "showValues": false,
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 24,
-            "x": 0,
-            "y": 53
-          },
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "13.2.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "loki",
-                "uid": "lokiuid"
-              },
-              "direction": "backward",
-              "editorMode": "code",
-              "expr": "sum by (source) (count_over_time({job=\"hermes\"} |~ \"(?i)error\" [5m]))",
-              "legendFormat": "{{source}}",
-              "queryType": "range",
-              "refId": "A"
-            }
-          ],
-          "title": "Error lines by source (5m)",
-          "type": "timeseries",
-          "id": 23
-        },
-        {
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "showValues": false,
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "none"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 24,
-            "x": 0,
-            "y": 60
-          },
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "13.2.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "loki",
-                "uid": "lokiuid"
-              },
-              "direction": "backward",
-              "editorMode": "code",
-              "expr": "sum by (source) (count_over_time({job=\"hermes\"}[5m]))",
-              "legendFormat": "{{source}}",
-              "queryType": "range",
-              "refId": "A"
-            }
-          ],
-          "title": "Log lines by source (5m)",
-          "type": "timeseries",
-          "id": 26
-        }
-      ],
-      "title": "Health",
+      "id": 40,
+      "title": "New row 1",
       "type": "row"
     },
     {
@@ -1865,14 +3249,559 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 32
+        "y": 63
       },
-      "id": 37,
-      "panels": [],
-      "title": "Breakdown",
+      "id": 41,
+      "title": "Health",
       "type": "row"
     },
     {
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "m"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "13.2.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "time() - hermes_cost_last_success_timestamp_seconds",
+          "legendFormat": "cost poll age (s)",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "time() - hermes_flow_last_success_timestamp_seconds",
+          "legendFormat": "flow poll age (s)",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_cost_exporter_errors_total",
+          "legendFormat": "cost errors",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "hermes_flow_exporter_errors_total",
+          "legendFormat": "flow errors",
+          "refId": "D"
+        }
+      ],
+      "type": "timeseries",
+      "id": 24,
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 64
+      },
+      "title": "Exporter health \u2014 poll age & errors",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheusuid"
+      }
+    },
+    {
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "13.2.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "sum(increase(hermes_cron_runs_total[1d]))",
+          "legendFormat": "runs",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusuid"
+          },
+          "expr": "sum(increase(hermes_cron_failures_total[1d]))",
+          "legendFormat": "failures",
+          "refId": "B"
+        }
+      ],
+      "type": "timeseries",
+      "id": 22,
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 71
+      },
+      "title": "Cron runs vs failures (24h)",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheusuid"
+      }
+    },
+    {
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "loglines"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "13.2.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "lokiuid"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "sum by (source) (count_over_time({job=\"hermes\"} |~ \"matrix:!\" [15m]))",
+          "legendFormat": "{{source}}",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "type": "timeseries",
+      "id": 25,
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 78
+      },
+      "title": "Gateway log lines mentioning Matrix rooms (15m)",
+      "datasource": {
+        "type": "loki",
+        "uid": "lokiuid"
+      }
+    },
+    {
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "13.2.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "lokiuid"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "sum by (source) (count_over_time({job=\"hermes\"} |~ \"(?i)error\" [5m]))",
+          "legendFormat": "{{source}}",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "type": "timeseries",
+      "id": 23,
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 85
+      },
+      "title": "Error lines by source (5m)",
+      "datasource": {
+        "type": "loki",
+        "uid": "lokiuid"
+      }
+    },
+    {
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "13.2.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "lokiuid"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "sum by (source) (count_over_time({job=\"hermes\"}[5m]))",
+          "legendFormat": "{{source}}",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "type": "timeseries",
+      "id": 26,
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 92
+      },
+      "title": "Log lines by source (5m)",
+      "datasource": {
+        "type": "loki",
+        "uid": "lokiuid"
+      }
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 99
+      },
+      "id": 42,
+      "title": "New row",
+      "type": "row"
+    },
+    {
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1892,12 +3821,6 @@
           "unit": "none"
         },
         "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 0,
-        "y": 33
       },
       "options": {
         "barShape": "rounded",
@@ -1939,9 +3862,19 @@
           "refId": "A"
         }
       ],
-      "title": "Sessions",
       "type": "gauge",
-      "id": 9
+      "id": 9,
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 0,
+        "y": 100
+      },
+      "title": "Sessions",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheusuid"
+      }
     },
     {
       "datasource": {
@@ -1974,7 +3907,7 @@
         "h": 5,
         "w": 4,
         "x": 4,
-        "y": 33
+        "y": 100
       },
       "id": 13,
       "options": {
@@ -2051,7 +3984,7 @@
         "h": 5,
         "w": 4,
         "x": 8,
-        "y": 33
+        "y": 100
       },
       "id": 12,
       "options": {
@@ -2128,7 +4061,7 @@
         "h": 5,
         "w": 4,
         "x": 12,
-        "y": 33
+        "y": 100
       },
       "id": 14,
       "options": {
@@ -2205,7 +4138,7 @@
         "h": 5,
         "w": 4,
         "x": 16,
-        "y": 33
+        "y": 100
       },
       "id": 11,
       "options": {
@@ -2252,6 +4185,7 @@
       "type": "gauge"
     },
     {
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2275,12 +4209,6 @@
           "unit": "currencyUSD"
         },
         "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 20,
-        "y": 33
       },
       "options": {
         "barShape": "rounded",
@@ -2324,9 +4252,19 @@
           "refId": "A"
         }
       ],
-      "title": "Cost all-time",
       "type": "gauge",
-      "id": 10
+      "id": 10,
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 100
+      },
+      "title": "Cost all-time",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheusuid"
+      }
     },
     {
       "datasource": {
@@ -2364,7 +4302,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 38
+        "y": 105
       },
       "id": 2,
       "options": {
@@ -2446,7 +4384,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 38
+        "y": 105
       },
       "id": 15,
       "options": {
@@ -2552,7 +4490,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 47
+        "y": 114
       },
       "id": 5,
       "options": {
@@ -2613,7 +4551,7 @@
         "h": 10,
         "w": 13,
         "x": 0,
-        "y": 56
+        "y": 123
       },
       "id": 3,
       "options": {
@@ -2688,7 +4626,7 @@
         "h": 10,
         "w": 11,
         "x": 13,
-        "y": 56
+        "y": 123
       },
       "id": 16,
       "options": {
@@ -2790,5 +4728,5 @@
   "timezone": "browser",
   "title": "Hermes-Main",
   "uid": "hermes-flow",
-  "version": 60
+  "version": 72
 }
