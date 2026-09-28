@@ -1,17 +1,8 @@
 services:
-  otel-collector:
-    image: docker.io/otel/opentelemetry-collector-contrib:latest
-    container_name: otel-collector
-    ports:
-      - "4317:4317"   # OTLP gRPC
-      - "4318:4318"   # OTLP HTTP
-      - "8889:8889"   # prometheus exporter (prometheus scrapes localhost:8889)
-    volumes:
-      - ./otel-config.yaml:/etc/otel/config.yaml:ro
-    command: ["--config=/etc/otel/config.yaml"]
-    environment:
-      - GOGC=80
-    restart: unless-stopped
+  # NOTE (2026-09-28): otel-collector removed — it was an idle OTLP relay (zero
+  # producers on this box; Tempo held zero traces). otel-config.yaml stays in
+  # the repo for the future Alfalite/OTel instrumentation. Re-add the service
+  # + the prometheus scrape job when an OTLP producer actually exists.
 
   prometheus:
     image: docker.io/prom/prometheus:latest
@@ -28,13 +19,14 @@ services:
       - '--storage.tsdb.path=/prometheus'
       - '--storage.tsdb.retention.time=7d'
       - '--web.enable-admin-api'
+      - '--web.listen-address=127.0.0.1:9090'
     restart: unless-stopped
 
   loki:
     image: docker.io/grafana/loki:latest
     container_name: loki
     ports:
-      - "3100:3100"
+      - "127.0.0.1:3100:3100"
     volumes:
       - ./loki-config.yaml:/etc/loki/local-config.yaml:ro
       - loki-storage:/loki
@@ -45,7 +37,7 @@ services:
     image: docker.io/grafana/tempo:latest
     container_name: tempo
     ports:
-      - "3200:3200"   # query API (Grafana datasource)
+      - "127.0.0.1:3200:3200"   # query API (Grafana datasource)
     volumes:
       - ./tempo.yaml:/etc/tempo.yaml:ro
       - tempo-storage:/var/tempo
