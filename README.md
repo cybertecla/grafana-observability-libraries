@@ -2,7 +2,7 @@
 
 Reusable Grafana dashboard/panel library for the LGTM observability stack — sessions, skill usage, cost and health visibility for a multi-agent Hermes deployment.
 
-Status: **v0 — dashboard panels only**. The wiring (docker-compose, datasource provisioning, alert rules, Prometheus / Loki configs) and the exporters themselves are **not published yet**. This repo intentionally ships only the dashboard JSON and this reuse contract.
+Status: **v1 — dashboard panels only**. The wiring (docker-compose, datasource provisioning, alert rules, Prometheus / Loki configs) and the exporters themselves are **not published yet**. This repo intentionally ships only the dashboard JSON and this reuse contract. v1 (2026-09-28) is a fresh re-export: 19 library references expanded to standalone panels, layout mirrors the live dashboard exactly.
 
 ## Layout
 
@@ -10,15 +10,14 @@ Status: **v0 — dashboard panels only**. The wiring (docker-compose, datasource
 |---|---|
 | `dashboards/hermes-main.json` | **Hermes-Main** (uid `hermes-flow`, folder `Hermes`) — the single consolidated dashboard: sessions, tokens/spend, health, breakdown |
 
-29 panels in 5 rows:
+30 panels across 4 rows:
 
 | Row | Panels |
 |---|---|
-| Overall | (reserved, currently empty) |
-| Sessions | Sessions per profile · Sessions per profile / day · Sessions per model (all profiles) · Last 24h Sessions · Top Per-profile skill usage |
-| Tokens | Spend per profile · All-time OpenRouter (USD) · Spent this month / today / this week (USD) · Cost per model / day · Cron job tokens — per job · Tokens by kind / day (incl. cache) |
+| General | Sessions per profile · Sessions per profile / day · Sessions per model (all profiles) · Last 24h Sessions · Top Per-profile skill usage · Spend per profile · All-time OpenRouter (USD) · Spent this month / today / this week (USD) · Cost per model / day · Cron job tokens — per job · Tokens by kind / day (incl. cache) · System prompt budget per profile |
+| New row 1 | (empty) |
 | Health | Exporter health — poll age & errors · Cron runs vs failures (24h) · Gateway log lines mentioning Matrix rooms (15m) · Error lines by source (5m) · Log lines by source (5m) |
-| Breakdown | Sessions · Tool calls · Tokens · Messages · Cost last 24h · Cost all-time · Sessions per model per profile · Avg cost per session by model · Skill use trends — top 8 / day · Skill usage — top 15 · Sessions by source (which gateway/channel) |
+| New row | Sessions · Tool calls · Tokens · Messages · Cost last 24h · Cost all-time · Sessions per model per profile · Avg cost per session by model · Skill use trends — top 8 / day · Skill usage — top 15 · Sessions by source (which gateway/channel) |
 
 ## Datasource contract
 
@@ -43,6 +42,7 @@ Template variable: `$profile` (dropdown fed from Prometheus label values; all pa
 | `hermes_cron_runs_total`, `hermes_cron_failures_total`, `hermes_cron_session_tokens_total` | hermes-flow-exporter (`:9102`) |
 | `hermes_gateway_up` | hermes-flow-exporter (`:9102`) |
 | `hermes_flow_last_success_timestamp_seconds`, `hermes_flow_exporter_errors_total` | hermes-flow-exporter (`:9102`) — poll health |
+| `hermes_prompt_size_bytes`, `hermes_prompt_section_bytes`, `hermes_prompt_tools_total` | hermes-flow-exporter (`:9102`) — system prompt budget |
 | Loki stream `{job="hermes"}` (gateway/agent logs; the Health row log panels) | stack log pipeline (shipped into Loki; wiring not yet published) |
 
 Notes:
@@ -72,8 +72,10 @@ providers:
 
 ## Reuse contract / status
 
-- **v0**: wiring, compose, exporters, alerts, and datasource configs are NOT published. Only dashboard layout + queries.
-- **Self-contained**: the source dashboard uses Grafana *library panels*; for this export all 19 library references were expanded into standalone panels, so the file imports anywhere without needing the original library elements.
+- **v1 (2026-09-28)**: fresh re-export of the repaired dashboard. Supersedes v0.
+- **v0 (2026-09-23)**: initial export.
+- **Self-contained**: every panel is a standalone definition; the 19 source library references were expanded into full panels locally. The file imports without the original library elements.
 - Dashboards contain queries/layout only — no credentials, no real cost numbers, no data.
-- Export freshness: exported from the live Grafana instance on 2026-09-23.
+- The export is a read-only snapshot of the live dashboard; the library never writes back to it.
+- Export freshness: exported from the live Grafana instance on 2026-09-28.
 - No LICENSE file (decision pending — ask before reusing).
